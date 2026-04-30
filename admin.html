@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ADMIN — SCRIPT FEEDBACK</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--yellow:#FFD93D;--pink:#FF8FAB;--mint:#4ECDC4;--bg:#ffffff;--bg2:#f9f9fb;--text:#1a1a2e;--mid:#555570;--light:#9999bb;--border:#ebebf4;--grad:linear-gradient(135deg,var(--yellow) 0%,var(--pink) 60%,var(--mint) 100%);--grad-h:linear-gradient(90deg,var(--yellow) 0%,var(--pink) 100%);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;line-height:1.5;padding-bottom:120px;}
+.adminbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:var(--text);color:white;}
+.adminbar-title{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:900;letter-spacing:3px;}
+.adminbar-title em{font-style:normal;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.adminbar-actions{display:flex;gap:10px;align-items:center;}
+.adminbar-status{font-size:11px;color:var(--light);font-family:'Montserrat',sans-serif;letter-spacing:1px;}
+.adminbar-status.dirty{color:var(--yellow);}
+.btn{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;transition:opacity 0.2s,transform 0.1s;}
+.btn:hover{opacity:0.85;}
+.btn:active{transform:scale(0.97);}
+.btn-primary{background:var(--grad-h);color:white;}
+.btn-secondary{background:var(--bg2);color:var(--text);border:1px solid var(--border);}
+.btn-danger{background:rgba(255,143,171,0.15);color:var(--pink);border:1px solid rgba(255,143,171,0.4);}
+.btn-ghost{background:transparent;color:var(--light);border:1px solid rgba(255,255,255,0.15);}
+.btn-ghost:hover{color:white;border-color:rgba(255,255,255,0.3);}
+
+main{max-width:1100px;margin:0 auto;padding:32px;}
+.intro{background:var(--bg2);border-left:4px solid var(--mint);padding:18px 22px;border-radius:0 12px 12px 0;margin-bottom:32px;font-size:13px;color:var(--mid);line-height:1.85;}
+.intro strong{color:var(--text);}
+.intro code{background:var(--bg);padding:2px 6px;border-radius:4px;font-size:12px;font-family:'Montserrat',monospace;}
+
+.section{margin-bottom:48px;}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.section-title{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;letter-spacing:1px;}
+.section-count{font-size:11px;color:var(--light);font-family:'Montserrat',sans-serif;}
+
+.entry{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;}
+.entry-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;background:var(--bg2);transition:background 0.2s;}
+.entry-head:hover{background:#f1f1f8;}
+.entry-head-info{display:flex;flex-direction:column;gap:4px;}
+.entry-head-title{font-size:14px;font-weight:700;color:var(--text);}
+.entry-head-sub{font-size:11px;color:var(--light);font-family:'Montserrat',sans-serif;letter-spacing:0.5px;}
+.entry-head-actions{display:flex;gap:6px;align-items:center;}
+.entry-head-toggle{font-family:'Montserrat',sans-serif;font-size:14px;color:var(--light);transition:transform 0.2s;}
+.entry.open .entry-head-toggle{transform:rotate(90deg);}
+.entry-body{display:none;padding:20px;border-top:1px solid var(--border);}
+.entry.open .entry-body{display:block;}
+
+.field{margin-bottom:14px;}
+.field-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:14px;}
+.field-label{display:block;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--light);margin-bottom:6px;}
+.field-input,.field-select,.field-textarea{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;color:var(--text);background:var(--bg);font-family:inherit;line-height:1.5;}
+.field-input:focus,.field-select:focus,.field-textarea:focus{outline:none;border-color:var(--mint);}
+.field-textarea{resize:vertical;min-height:80px;font-family:'Noto Sans JP',sans-serif;}
+.field-hint{font-size:10px;color:var(--light);margin-top:4px;line-height:1.5;}
+.field-group{padding:14px;background:var(--bg2);border-radius:10px;margin-top:8px;}
+.field-group-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--light);margin-bottom:10px;}
+
+.add-btn{display:block;width:100%;padding:14px;background:transparent;border:1.5px dashed var(--border);border-radius:12px;color:var(--mid);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.add-btn:hover{border-color:var(--mint);color:var(--mint);background:rgba(78,205,196,0.04);}
+
+.modal-bg{position:fixed;inset:0;background:rgba(26,26,46,0.7);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-bg.open{display:flex;}
+.modal{background:var(--bg);border-radius:16px;padding:28px;max-width:480px;width:100%;}
+.modal-title{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;letter-spacing:2px;margin-bottom:16px;}
+.modal-body{font-size:13px;color:var(--mid);line-height:1.85;margin-bottom:18px;}
+.modal-body code{background:var(--bg2);padding:2px 6px;border-radius:4px;font-size:11px;font-family:'Montserrat',monospace;}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;}
+
+.empty-state{padding:24px;text-align:center;color:var(--light);font-size:12px;background:var(--bg2);border-radius:12px;}
+
+.footer-actions{position:fixed;bottom:0;left:0;right:0;padding:16px 32px;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;z-index:50;}
+.footer-actions .btn{padding:11px 20px;font-size:12px;}
+
+@media(max-width:760px){
+  main{padding:20px;}
+  .adminbar{padding:12px 16px;flex-wrap:wrap;gap:8px;}
+  .footer-actions{padding:12px 16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="adminbar">
+  <div class="adminbar-title">ADMIN <em>·</em> SCRIPT FEEDBACK</div>
+  <div class="adminbar-actions">
+    <span class="adminbar-status" id="status">読み込み中…</span>
+    <button class="btn btn-ghost" id="settings-btn">⚙ PAT設定</button>
+    <button class="btn btn-ghost" id="reload-btn">↻ 再読込</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="settings-modal">
+  <div class="modal">
+    <div class="modal-title">GITHUB PAT 設定</div>
+    <div class="modal-body">
+      GitHubの<strong>fine-grained Personal Access Token</strong>を入力。<br>
+      対象リポジトリ: <code>akidori/dankogyo-feedback</code> のみ<br>
+      権限: <code>Contents: Read and write</code><br>
+      <br>
+      作成: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:var(--mint);">GitHub Settings → PAT (fine-grained)</a><br>
+      <br>
+      <label class="field-label">PAT (github_pat_...)</label>
+      <input type="password" class="field-input" id="pat-input" placeholder="github_pat_xxxxx">
+      <div class="field-hint">localStorageに保存（このブラウザのみ）。空欄で保存すると削除。</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="settings-cancel">キャンセル</button>
+      <button class="btn btn-primary" id="settings-save">保存</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="intro">
+    <strong>運用フロー:</strong> ここで編集 → 下の <code>data.json をダウンロード</code> → ローカルの <code>data.json</code> を上書き → <code>git push</code> で公開反映。<br>
+    <strong>新規クライアント追加時:</strong> このページでエントリを足した後、<code>dankogyo.html</code> をコピーして <code>&lt;新slug&gt;.html</code> を作り、<code>data-slug</code> を書き換えて構成FB本文を埋める作業が別途必要。
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">CLIENTS</div>
+      <div class="section-count" id="clients-count">0件</div>
+    </div>
+    <div id="clients-list"></div>
+    <button class="add-btn" id="add-client">+ 新規クライアントを追加</button>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">PATTERNS（共通項）</div>
+      <div class="section-count" id="patterns-count">0件</div>
+    </div>
+    <div id="patterns-list"></div>
+    <button class="add-btn" id="add-pattern">+ 共通項を追加</button>
+  </div>
+</main>
+
+<div class="footer-actions">
+  <button class="btn btn-secondary" id="copy-btn">コピー</button>
+  <button class="btn btn-secondary" id="download-btn">ダウンロード</button>
+  <button class="btn btn-primary" id="commit-btn">GitHubに保存</button>
+</div>
+
+<script>
+const STAGES=[
+  {value:'shoot',label:'shoot — 撮影前/中'},
+  {value:'edit',label:'edit — 編集中'},
+  {value:'overall',label:'overall — 全体FB中'},
+  {value:'done',label:'done — 公開済'}
+];
+
+let state={clients:[],patterns:[]};
+let dirty=false;
+
+function setDirty(v){
+  dirty=v;
+  const s=document.getElementById('status');
+  if(v){s.textContent='● 未保存の変更あり';s.classList.add('dirty');}
+  else{s.textContent='保存済';s.classList.remove('dirty');}
+}
+
+function emptyClient(){
+  return {slug:'',page:'',number:'',date:'',name:'',subtitle:'',tag:'',fb_points:0,stage:'shoot',youtube_id:null,published_at:null,metrics:{views:null,ctr:null,retention:null}};
+}
+
+function emptyPattern(){
+  return {num:'',title:'',desc:'',source:''};
+}
+
+function el(tag,attrs={},...children){
+  const e=document.createElement(tag);
+  for(const k in attrs){
+    if(k==='class')e.className=attrs[k];
+    else if(k.startsWith('on'))e.addEventListener(k.slice(2),attrs[k]);
+    else e.setAttribute(k,attrs[k]);
+  }
+  for(const c of children){
+    if(c==null)continue;
+    e.append(typeof c==='string'?document.createTextNode(c):c);
+  }
+  return e;
+}
+
+function input(label,value,onChange,opts={}){
+  const wrap=el('div',{class:'field'});
+  wrap.append(el('label',{class:'field-label'},label));
+  const tag=opts.textarea?'textarea':'input';
+  const inp=el(tag,{class:opts.textarea?'field-textarea':'field-input',type:opts.type||'text',placeholder:opts.placeholder||''});
+  inp.value=value??'';
+  inp.addEventListener('input',()=>{onChange(inp.value);setDirty(true);});
+  wrap.append(inp);
+  if(opts.hint)wrap.append(el('div',{class:'field-hint'},opts.hint));
+  return wrap;
+}
+
+function select(label,value,options,onChange){
+  const wrap=el('div',{class:'field'});
+  wrap.append(el('label',{class:'field-label'},label));
+  const sel=el('select',{class:'field-select'});
+  for(const o of options){
+    const opt=el('option',{value:o.value},o.label);
+    if(o.value===value)opt.selected=true;
+    sel.append(opt);
+  }
+  sel.addEventListener('change',()=>{onChange(sel.value);setDirty(true);});
+  wrap.append(sel);
+  return wrap;
+}
+
+function numField(label,value,onChange,hint){
+  const wrap=el('div',{class:'field'});
+  wrap.append(el('label',{class:'field-label'},label));
+  const inp=el('input',{class:'field-input',type:'number',step:'any',placeholder:'空欄=null'});
+  inp.value=value==null?'':value;
+  inp.addEventListener('input',()=>{
+    const v=inp.value.trim();
+    onChange(v===''?null:Number(v));
+    setDirty(true);
+  });
+  wrap.append(inp);
+  if(hint)wrap.append(el('div',{class:'field-hint'},hint));
+  return wrap;
+}
+
+function strField(label,value,onChange,hint){
+  const wrap=el('div',{class:'field'});
+  wrap.append(el('label',{class:'field-label'},label));
+  const inp=el('input',{class:'field-input',type:'text',placeholder:'空欄=null'});
+  inp.value=value??'';
+  inp.addEventListener('input',()=>{
+    const v=inp.value;
+    onChange(v===''?null:v);
+    setDirty(true);
+  });
+  wrap.append(inp);
+  if(hint)wrap.append(el('div',{class:'field-hint'},hint));
+  return wrap;
+}
+
+function row(...items){
+  const r=el('div',{class:'field-row'});
+  for(const i of items)r.append(i);
+  return r;
+}
+
+function clientCard(c,idx){
+  const card=el('div',{class:'entry'});
+  const head=el('div',{class:'entry-head'});
+  const headInfo=el('div',{class:'entry-head-info'},
+    el('div',{class:'entry-head-title'},c.name||'(未入力)'),
+    el('div',{class:'entry-head-sub'},`#${c.number||'--'} / ${c.slug||'no-slug'} / ${c.stage}`)
+  );
+  const headActions=el('div',{class:'entry-head-actions'},
+    el('button',{class:'btn btn-danger',onclick:(e)=>{
+      e.stopPropagation();
+      if(confirm(`「${c.name||'このクライアント'}」を削除しますか？`)){
+        state.clients.splice(idx,1);
+        setDirty(true);render();
+      }
+    }},'削除'),
+    el('span',{class:'entry-head-toggle'},'›')
+  );
+  head.append(headInfo,headActions);
+  head.addEventListener('click',(e)=>{
+    if(e.target.closest('button'))return;
+    card.classList.toggle('open');
+  });
+
+  const body=el('div',{class:'entry-body'});
+
+  body.append(row(
+    input('slug',c.slug,v=>{c.slug=v;c.page=v?`${v}.html`:'';head.querySelector('.entry-head-sub').textContent=`#${c.number||'--'} / ${c.slug||'no-slug'} / ${c.stage}`;},{hint:'URLスラッグ。HTMLファイル名と一致させる。'}),
+    input('page',c.page,v=>{c.page=v;},{hint:'通常は slug + .html'}),
+    input('number',c.number,v=>{c.number=v;head.querySelector('.entry-head-sub').textContent=`#${c.number||'--'} / ${c.slug||'no-slug'} / ${c.stage}`;},{hint:'通し番号 (例: "01")'})
+  ));
+  body.append(row(
+    input('date',c.date,v=>{c.date=v;},{hint:'着手月 (例: "2026.04")'}),
+    input('name',c.name,v=>{c.name=v;head.querySelector('.entry-head-title').textContent=v||'(未入力)';},{hint:'クライアント名'}),
+    numField('fb_points',c.fb_points,v=>{c.fb_points=v??0;},'構成FB項目数')
+  ));
+  body.append(input('subtitle',c.subtitle,v=>{c.subtitle=v;},{hint:'サブタイトル (例: "船岡綾氏 / 採用ファン化動画 / 1日密着")'}));
+  body.append(input('tag',c.tag,v=>{c.tag=v;},{hint:'カードフッタタグ (例: "FANTSスタイル / 全15項目")'}));
+
+  body.append(row(
+    select('stage',c.stage,STAGES,v=>{c.stage=v;head.querySelector('.entry-head-sub').textContent=`#${c.number||'--'} / ${c.slug||'no-slug'} / ${c.stage}`;}),
+    strField('youtube_id',c.youtube_id,v=>{c.youtube_id=v;},'YouTube動画ID。サムネ表示元'),
+    strField('published_at',c.published_at,v=>{c.published_at=v;},'公開日 (例: "2026.05.15")')
+  ));
+
+  const metricsGroup=el('div',{class:'field-group'});
+  metricsGroup.append(el('div',{class:'field-group-label'},'METRICS'));
+  metricsGroup.append(row(
+    numField('再生数 (views)',c.metrics.views,v=>{c.metrics.views=v;}),
+    numField('CTR (%)',c.metrics.ctr,v=>{c.metrics.ctr=v;}),
+    numField('視聴維持率 (%)',c.metrics.retention,v=>{c.metrics.retention=v;})
+  ));
+  body.append(metricsGroup);
+
+  card.append(head,body);
+  return card;
+}
+
+function patternCard(p,idx){
+  const card=el('div',{class:'entry'});
+  const head=el('div',{class:'entry-head'});
+  const headInfo=el('div',{class:'entry-head-info'},
+    el('div',{class:'entry-head-title'},`PATTERN ${p.num||'--'}: ${p.title||'(未入力)'}`),
+    el('div',{class:'entry-head-sub'},p.source||'')
+  );
+  const headActions=el('div',{class:'entry-head-actions'},
+    el('button',{class:'btn btn-danger',onclick:(e)=>{
+      e.stopPropagation();
+      if(confirm(`PATTERN ${p.num} を削除しますか？`)){
+        state.patterns.splice(idx,1);
+        setDirty(true);render();
+      }
+    }},'削除'),
+    el('span',{class:'entry-head-toggle'},'›')
+  );
+  head.append(headInfo,headActions);
+  head.addEventListener('click',(e)=>{
+    if(e.target.closest('button'))return;
+    card.classList.toggle('open');
+  });
+
+  const body=el('div',{class:'entry-body'});
+  body.append(row(
+    input('num',p.num,v=>{p.num=v;head.querySelector('.entry-head-title').textContent=`PATTERN ${p.num||'--'}: ${p.title||'(未入力)'}`;},{hint:'番号 (例: "01")'}),
+    input('source',p.source,v=>{p.source=v;head.querySelector('.entry-head-sub').textContent=v;},{hint:'出典 (例: "暖工業 POINT 01")'})
+  ));
+  body.append(input('title',p.title,v=>{p.title=v;head.querySelector('.entry-head-title').textContent=`PATTERN ${p.num||'--'}: ${p.title||'(未入力)'}`;},{hint:'見出し'}));
+  body.append(input('desc',p.desc,v=>{p.desc=v;},{textarea:true,hint:'本文。<strong>強調</strong>などのHTMLタグ使用可'}));
+
+  card.append(head,body);
+  return card;
+}
+
+function render(){
+  const cl=document.getElementById('clients-list');
+  const pl=document.getElementById('patterns-list');
+  cl.innerHTML='';
+  pl.innerHTML='';
+  if(state.clients.length===0)cl.append(el('div',{class:'empty-state'},'クライアントが登録されていません'));
+  else state.clients.forEach((c,i)=>cl.append(clientCard(c,i)));
+  if(state.patterns.length===0)pl.append(el('div',{class:'empty-state'},'共通項が登録されていません'));
+  else state.patterns.forEach((p,i)=>pl.append(patternCard(p,i)));
+  document.getElementById('clients-count').textContent=`${state.clients.length}件`;
+  document.getElementById('patterns-count').textContent=`${state.patterns.length}件`;
+}
+
+async function load(){
+  try{
+    const res=await fetch('data.json?t='+Date.now());
+    const data=await res.json();
+    state={clients:data.clients||[],patterns:data.patterns||[]};
+    state.clients.forEach(c=>{
+      if(!c.metrics)c.metrics={views:null,ctr:null,retention:null};
+    });
+    setDirty(false);
+    render();
+  }catch(e){
+    console.error(e);
+    document.getElementById('status').textContent='読み込み失敗';
+  }
+}
+
+function serialize(){
+  return JSON.stringify(state,null,2)+'\n';
+}
+
+function download(){
+  const blob=new Blob([serialize()],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=el('a',{href:url,download:'data.json'});
+  document.body.append(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  setDirty(false);
+}
+
+async function copy(){
+  try{
+    await navigator.clipboard.writeText(serialize());
+    const s=document.getElementById('status');
+    const prev=s.textContent;
+    s.textContent='コピー済 ✓';
+    setTimeout(()=>{s.textContent=prev;},1500);
+  }catch(e){
+    alert('コピー失敗: '+e.message);
+  }
+}
+
+const REPO={owner:'akidori',repo:'dankogyo-feedback',path:'data.json',branch:'main'};
+const PAT_KEY='dankogyo_admin_pat';
+
+function getPAT(){return localStorage.getItem(PAT_KEY)||'';}
+function setPAT(v){if(v)localStorage.setItem(PAT_KEY,v);else localStorage.removeItem(PAT_KEY);}
+
+function utf8ToBase64(str){
+  const bytes=new TextEncoder().encode(str);
+  let bin='';
+  for(const b of bytes)bin+=String.fromCharCode(b);
+  return btoa(bin);
+}
+
+async function ghGetSha(){
+  const pat=getPAT();
+  if(!pat)throw new Error('PAT未設定。⚙PAT設定 から登録してください。');
+  const url=`https://api.github.com/repos/${REPO.owner}/${REPO.repo}/contents/${REPO.path}?ref=${REPO.branch}`;
+  const res=await fetch(url,{headers:{'Authorization':`Bearer ${pat}`,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'}});
+  if(!res.ok){
+    if(res.status===401)throw new Error('PATが無効。再設定してください。');
+    if(res.status===404)throw new Error('リポジトリ/ファイルが見つからない');
+    throw new Error(`GET失敗 (${res.status})`);
+  }
+  const data=await res.json();
+  return data.sha;
+}
+
+async function ghPutContent(sha,content,message){
+  const pat=getPAT();
+  const url=`https://api.github.com/repos/${REPO.owner}/${REPO.repo}/contents/${REPO.path}`;
+  const body={message,content:utf8ToBase64(content),sha,branch:REPO.branch};
+  const res=await fetch(url,{
+    method:'PUT',
+    headers:{'Authorization':`Bearer ${pat}`,'Accept':'application/vnd.github+json','Content-Type':'application/json','X-GitHub-Api-Version':'2022-11-28'},
+    body:JSON.stringify(body)
+  });
+  if(!res.ok){
+    const err=await res.json().catch(()=>({}));
+    if(res.status===401)throw new Error('PATが無効。再設定してください。');
+    if(res.status===403)throw new Error('権限不足。PATの Contents:write 権限を確認');
+    if(res.status===409)throw new Error('競合発生。再読込してから保存してください。');
+    throw new Error(`PUT失敗 (${res.status}): ${err.message||''}`);
+  }
+  return res.json();
+}
+
+async function commit(){
+  const btn=document.getElementById('commit-btn');
+  const s=document.getElementById('status');
+  if(!getPAT()){
+    alert('先に⚙PAT設定からPATを登録してください。');
+    return;
+  }
+  btn.disabled=true;
+  const prevText=btn.textContent;
+  btn.textContent='保存中…';
+  s.textContent='GitHub保存中…';
+  try{
+    const sha=await ghGetSha();
+    const msg=`admin: update data.json (${state.clients.length} clients, ${state.patterns.length} patterns)`;
+    await ghPutContent(sha,serialize(),msg);
+    setDirty(false);
+    s.textContent='✓ 保存完了（Pages反映まで30-60秒）';
+    s.classList.remove('dirty');
+    setTimeout(()=>{if(!dirty)s.textContent='保存済';},5000);
+  }catch(e){
+    console.error(e);
+    s.textContent='✗ 保存失敗';
+    alert('保存失敗: '+e.message);
+  }finally{
+    btn.disabled=false;
+    btn.textContent=prevText;
+  }
+}
+
+function openSettings(){
+  document.getElementById('pat-input').value=getPAT();
+  document.getElementById('settings-modal').classList.add('open');
+}
+function closeSettings(){
+  document.getElementById('settings-modal').classList.remove('open');
+}
+document.getElementById('settings-btn').addEventListener('click',openSettings);
+document.getElementById('settings-cancel').addEventListener('click',closeSettings);
+document.getElementById('settings-save').addEventListener('click',()=>{
+  const v=document.getElementById('pat-input').value.trim();
+  setPAT(v);
+  closeSettings();
+  updatePATStatus();
+});
+document.getElementById('settings-modal').addEventListener('click',(e)=>{
+  if(e.target.id==='settings-modal')closeSettings();
+});
+document.getElementById('commit-btn').addEventListener('click',commit);
+
+function updatePATStatus(){
+  const btn=document.getElementById('settings-btn');
+  btn.textContent=getPAT()?'⚙ PAT 設定済':'⚙ PAT 未設定';
+}
+updatePATStatus();
+
+document.getElementById('add-client').addEventListener('click',()=>{
+  state.clients.push(emptyClient());
+  setDirty(true);render();
+  const last=document.querySelectorAll('#clients-list .entry');
+  if(last.length)last[last.length-1].classList.add('open');
+});
+document.getElementById('add-pattern').addEventListener('click',()=>{
+  state.patterns.push(emptyPattern());
+  setDirty(true);render();
+  const last=document.querySelectorAll('#patterns-list .entry');
+  if(last.length)last[last.length-1].classList.add('open');
+});
+document.getElementById('reload-btn').addEventListener('click',()=>{
+  if(dirty&&!confirm('未保存の変更があります。再読込すると失われます。続行しますか？'))return;
+  load();
+});
+document.getElementById('download-btn').addEventListener('click',download);
+document.getElementById('copy-btn').addEventListener('click',copy);
+
+window.addEventListener('beforeunload',(e)=>{
+  if(dirty){e.preventDefault();e.returnValue='';}
+});
+
+load();
+</script>
+</body>
+</html>

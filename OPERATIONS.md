@@ -7,6 +7,7 @@
 | `index.html` | ハブ（台本一覧・共通項） |
 | `<slug>.html` | クライアント別フィードバック（例: `dankogyo.html`） |
 | `data.json` | 全クライアント・全数値の正本 |
+| `admin.html` | 管理画面（隠しURL、リンク非掲載） |
 | `OPERATIONS.md` | このファイル |
 
 ## データの流れ
@@ -59,9 +60,51 @@ data.json を編集
 | `desc` | 本文（HTML可、`<strong>` 使える） |
 | `source` | 出典（"暖工業 POINT 01" など） |
 
+## 管理画面（admin.html）
+
+URL: `https://akidori.github.io/dankogyo-feedback/admin.html`
+
+リンクはハブから貼っていない（直URL アクセス）。`<meta name="robots" content="noindex,nofollow">` でクロール除外。
+
+### 初回セットアップ（PAT登録）
+
+1. [GitHub Settings → Personal Access Tokens (fine-grained)](https://github.com/settings/personal-access-tokens/new) で新規発行
+2. 設定:
+   - Resource owner: `akidori`
+   - Repository access: **Only select repositories** → `dankogyo-feedback`
+   - Permissions → Repository permissions → **Contents: Read and write**
+   - 有効期限: 任意（90日推奨）
+3. 生成されたPAT (`github_pat_...`) をコピー
+4. admin.html 開く → ⚙PAT設定 → 貼って保存
+
+PATは**このブラウザのlocalStorageのみ**に保存。コミットには含まれない。漏洩したらGitHub Settingsから即無効化。
+
+### admin.html の使い方
+
+- **CLIENTS**: クライアント一覧。クリックで展開、フォームで編集。
+- **PATTERNS**: 共通項一覧。
+- 各エントリの「削除」ボタンで削除。
+- 末尾の「+ 新規クライアントを追加 / + 共通項を追加」で追加。
+- 編集後、画面下部の **GitHubに保存** で `data.json` をリポジトリに直接コミット → Pages自動再ビルド（30-60秒で反映）。
+- フォールバック:
+  - **コピー**: JSON文字列をクリップボードへ
+  - **ダウンロード**: `data.json` をローカル保存（手動push用）
+
+### 注意
+
+- admin.html はファイル単位の編集のみ。**新規クライアントのHTMLページ自体は別途作る必要がある**（`dankogyo.html` をコピー → `<新slug>.html` にリネーム → `data-slug` 書き換え → 構成FB本文を埋める）。
+
 ## 操作レシピ
 
 ### 数値を更新する（一番頻繁）
+
+**admin.html を使う方法（推奨）:**
+
+1. admin.html を開く
+2. 対象クライアントを展開 → METRICS の views/ctr/retention を更新
+3. 「GitHubに保存」
+
+**手で `data.json` を編集する方法:**
 
 `data.json` の対象クライアントの `metrics.{views,ctr,retention}` を YouTube Studio の値に書き換えて push。
 
