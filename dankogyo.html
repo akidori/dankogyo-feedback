@@ -252,6 +252,9 @@ section{padding:88px 48px;max-width:980px;margin:0 auto;}
 .stage-checklist-item{font-size:12px;color:var(--mid);font-weight:300;line-height:1.7;padding-left:14px;position:relative;margin-bottom:6px;}
 .stage-checklist-item::before{content:'';position:absolute;left:0;top:8px;width:6px;height:1.5px;background:var(--grad);}
 
+.thumbnail-block{display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;margin-bottom:18px;background:var(--bg2);text-decoration:none;}
+.thumbnail-block img{width:100%;height:100%;object-fit:cover;display:block;}
+
 .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px;}
 .metric-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:14px;padding:28px 20px;text-align:center;}
 .metric-card-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--light);margin-bottom:14px;}
@@ -281,7 +284,7 @@ footer{background:var(--text);padding:48px;text-align:center;}
 }
 </style>
 </head>
-<body>
+<body data-slug="dankogyo">
 
 <nav>
   <a href="index.html" class="nav-logo" style="text-decoration:none;">DAN<span>.</span></a>
@@ -1175,7 +1178,7 @@ footer{background:var(--text);padding:48px;text-align:center;}
   <p class="sec-lead reveal">構成FBが反映された撮影・編集に対するフィードバック。<strong>撮影直後</strong>と<strong>編集直後</strong>の2段階で記録し、構成段階では見えなかった改善点を拾います。撮影後に各カードへ追記。</p>
 
   <div class="stage-grid reveal">
-    <div class="stage-card">
+    <div class="stage-card" data-stage="shoot">
       <div class="stage-card-head">
         <span class="stage-num">PHASE 01</span>
         <span class="stage-status">未着手</span>
@@ -1191,7 +1194,7 @@ footer{background:var(--text);padding:48px;text-align:center;}
       </div>
     </div>
 
-    <div class="stage-card">
+    <div class="stage-card" data-stage="edit">
       <div class="stage-card-head">
         <span class="stage-num">PHASE 02</span>
         <span class="stage-status">未着手</span>
@@ -1207,7 +1210,7 @@ footer{background:var(--text);padding:48px;text-align:center;}
       </div>
     </div>
 
-    <div class="stage-card">
+    <div class="stage-card" data-stage="overall">
       <div class="stage-card-head">
         <span class="stage-num">PHASE 03</span>
         <span class="stage-status">未着手</span>
@@ -1233,25 +1236,29 @@ footer{background:var(--text);padding:48px;text-align:center;}
   <h2 class="sec-title reveal">公開後の<br>パフォーマンス</h2>
   <p class="sec-lead reveal">構成FBの結果として、公開後にどう動いたか。<strong>再生数・CTR・視聴維持率</strong>を追跡し、次の構成に活かすためのフィードバックループ。</p>
 
+  <a class="thumbnail-block reveal" id="thumbnail-block" target="_blank" rel="noopener" style="display:none;">
+    <img id="thumbnail-img" alt="">
+  </a>
+
   <div class="metric-grid reveal">
     <div class="metric-card">
       <p class="metric-card-label">再生数</p>
-      <p class="metric-card-value">—</p>
+      <p class="metric-card-value" data-bind="metrics.views" data-fmt="num">—</p>
       <p class="metric-card-note">公開後に追記</p>
     </div>
     <div class="metric-card">
       <p class="metric-card-label">CTR</p>
-      <p class="metric-card-value">—</p>
+      <p class="metric-card-value" data-bind="metrics.ctr" data-fmt="pct">—</p>
       <p class="metric-card-note">サムネクリック率</p>
     </div>
     <div class="metric-card">
       <p class="metric-card-label">視聴維持率</p>
-      <p class="metric-card-value">—</p>
+      <p class="metric-card-value" data-bind="metrics.retention" data-fmt="pct">—</p>
       <p class="metric-card-note">冒頭30秒 / 平均</p>
     </div>
     <div class="metric-card">
       <p class="metric-card-label">公開日</p>
-      <p class="metric-card-value">—</p>
+      <p class="metric-card-value" data-bind="published_at">—</p>
       <p class="metric-card-note">YYYY.MM.DD</p>
     </div>
   </div>
@@ -1272,8 +1279,49 @@ footer{background:var(--text);padding:48px;text-align:center;}
 </footer>
 
 <script>
-const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const STAGE_RANK={shoot:0,edit:1,overall:2,done:3};
+
+function get(obj,path){return path.split('.').reduce((o,k)=>o==null?o:o[k],obj);}
+function fmt(type,val){
+  if(val==null)return '—';
+  if(type==='num')return Number(val).toLocaleString();
+  if(type==='pct')return val+'%';
+  return val;
+}
+
+(async()=>{
+  const slug=document.body.dataset.slug;
+  if(slug){
+    try{
+      const res=await fetch('data.json?t='+Date.now());
+      const data=await res.json();
+      const c=data.clients.find(x=>x.slug===slug);
+      if(c){
+        document.querySelectorAll('[data-bind]').forEach(el=>{
+          const v=get(c,el.dataset.bind);
+          el.textContent=fmt(el.dataset.fmt,v);
+        });
+        const stageRank=STAGE_RANK[c.stage]??0;
+        document.querySelectorAll('[data-stage]').forEach(el=>{
+          const r=STAGE_RANK[el.dataset.stage];
+          const status=el.querySelector('.stage-status');
+          if(r<stageRank){el.classList.add('done');if(status)status.textContent='完了';}
+          else if(r===stageRank){el.classList.add('current');if(status)status.textContent='対応中';}
+        });
+        if(c.youtube_id){
+          const block=document.getElementById('thumbnail-block');
+          const img=document.getElementById('thumbnail-img');
+          img.src=`https://img.youtube.com/vi/${c.youtube_id}/hqdefault.jpg`;
+          img.alt=c.name;
+          block.href=`https://www.youtube.com/watch?v=${c.youtube_id}`;
+          block.style.display='block';
+        }
+      }
+    }catch(e){console.error('data.json load error',e);}
+  }
+  const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+})();
 </script>
 
 </body>

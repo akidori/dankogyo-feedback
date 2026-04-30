@@ -42,6 +42,8 @@ section{padding:88px 48px;max-width:980px;margin:0 auto;}
 .archive-card{display:flex;flex-direction:column;background:var(--bg);border:1.5px solid var(--border);border-radius:18px;padding:32px;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;}
 .archive-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad-h);}
 .archive-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(26,26,46,0.08);border-color:var(--pink);}
+.archive-thumb{margin:-32px -32px 22px -32px;aspect-ratio:16/9;background:var(--bg2);overflow:hidden;border-radius:16px 16px 0 0;}
+.archive-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
 .archive-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
 .archive-num{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:2.5px;color:var(--light);}
 .archive-status{font-size:9px;font-weight:700;letter-spacing:2px;padding:5px 12px;border-radius:100px;font-family:'Montserrat',sans-serif;}
@@ -113,15 +115,15 @@ footer{background:var(--text);padding:48px;text-align:center;}
     <div class="hero-stats">
       <div class="hero-stat">
         <span class="hero-stat-label">CLIENTS</span>
-        <span class="hero-stat-val">1</span>
+        <span class="hero-stat-val" id="stat-clients">—</span>
       </div>
       <div class="hero-stat">
         <span class="hero-stat-label">FB POINTS</span>
-        <span class="hero-stat-val">15</span>
+        <span class="hero-stat-val" id="stat-points">—</span>
       </div>
       <div class="hero-stat">
         <span class="hero-stat-label">PATTERNS</span>
-        <span class="hero-stat-val">2</span>
+        <span class="hero-stat-val" id="stat-patterns">—</span>
       </div>
     </div>
   </div>
@@ -135,46 +137,8 @@ footer{background:var(--text);padding:48px;text-align:center;}
   <h2 class="sec-title reveal">クライアント別<br>フィードバック</h2>
   <p class="sec-lead reveal">各カードをクリックで詳細フィードバックへ。<strong>FB済み → 撮影済 → 公開済</strong>と進行に合わせて実績データを更新。</p>
 
-  <div class="archive-grid reveal">
-
-    <a href="dankogyo.html" class="archive-card">
-      <div class="archive-card-head">
-        <span class="archive-num">#01 / 2026.04</span>
-        <span class="archive-status fb">構成FB済</span>
-      </div>
-      <h3 class="archive-title">暖工業</h3>
-      <p class="archive-sub">船岡綾氏 / 採用ファン化動画 / 1日密着</p>
-      <div class="archive-metrics">
-        <div class="archive-metric">
-          <span class="archive-metric-label">再生数</span>
-          <span class="archive-metric-val empty">—</span>
-        </div>
-        <div class="archive-metric">
-          <span class="archive-metric-label">CTR</span>
-          <span class="archive-metric-val empty">—</span>
-        </div>
-        <div class="archive-metric">
-          <span class="archive-metric-label">維持率</span>
-          <span class="archive-metric-val empty">—</span>
-        </div>
-      </div>
-      <div class="archive-flow">
-        <span class="flow-step done">構成FB</span>
-        <span class="flow-sep">›</span>
-        <span class="flow-step current">撮影</span>
-        <span class="flow-sep">›</span>
-        <span class="flow-step">編集</span>
-        <span class="flow-sep">›</span>
-        <span class="flow-step">公開</span>
-      </div>
-      <div class="archive-foot">
-        <span class="archive-tag">FANTSスタイル / 全15項目</span>
-        <span class="archive-arrow">→</span>
-      </div>
-    </a>
-
-    <!-- 新規台本はここにカードを追加 -->
-
+  <div class="archive-grid" id="archive-grid">
+    <p style="color:var(--light);font-size:13px;font-weight:300;">読み込み中…</p>
   </div>
 </section>
 
@@ -186,26 +150,12 @@ footer{background:var(--text);padding:48px;text-align:center;}
   <h2 class="sec-title reveal">複数案件で繰り返される<br>指摘パターン</h2>
   <p class="sec-lead reveal">案件をまたいで現れる構造的な指摘。新規台本のレビュー時、まずここをチェックすると<strong>同じ落とし穴を回避</strong>できます。FBが増えるほど精度が上がる、運用型のリスト。</p>
 
-  <div class="reveal">
+  <div id="patterns-grid">
+    <p style="color:var(--light);font-size:13px;font-weight:300;">読み込み中…</p>
+  </div>
 
-    <div class="theme-card">
-      <p class="theme-num">PATTERN 01</p>
-      <h3 class="theme-title">原体験パートの欠落</h3>
-      <p class="theme-desc">幼少期・学生時代・修行時代といった<strong>原体験パート</strong>が構成に存在しない。社会人以降の話だけだと「成功者の昔話」にしか見えず、視聴者の感情移入が「頑張っている人」止まりで終わる。ファン化に必要な<strong>同一視</strong>が成立しない。</p>
-      <p class="theme-source">出典: 暖工業 POINT 01</p>
-    </div>
-
-    <div class="theme-card">
-      <p class="theme-num">PATTERN 02</p>
-      <h3 class="theme-title">前半に重い話を置くと離脱</h3>
-      <p class="theme-desc">前半に<strong>重い話（苦労ネタ・感情の山）</strong>を置くと、感情移入が完了していない一般視聴者は離脱。重い話は中盤以降に配置。冒頭30秒は<strong>視聴維持率50%</strong>を基準に、テンポを「構成」と「シーン・カット」で設計する。</p>
-      <p class="theme-source">出典: 暖工業 POINT 15</p>
-    </div>
-
-    <div class="theme-empty">
-      <p>※ 案件が増えるごとに共通項を抽出。現在は暖工業1件分から推定。</p>
-    </div>
-
+  <div class="theme-empty">
+    <p>※ 案件が増えるごとに共通項を抽出。現在は暖工業1件分から推定。</p>
   </div>
 </section>
 
@@ -215,8 +165,78 @@ footer{background:var(--text);padding:48px;text-align:center;}
 </footer>
 
 <script>
-const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const STAGE_RANK={shoot:1,edit:2,overall:2,done:3};
+const STEP_RANK={fb:0,shoot:1,edit:2,publish:3};
+const STEPS=[{key:'fb',label:'構成FB'},{key:'shoot',label:'撮影'},{key:'edit',label:'編集'},{key:'publish',label:'公開'}];
+const STATUS={shoot:{cls:'fb',text:'構成FB済'},edit:{cls:'shooting',text:'撮影済'},overall:{cls:'shooting',text:'編集済'},done:{cls:'published',text:'公開済'}};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function fmtNum(v){return v==null?null:Number(v).toLocaleString();}
+function fmtPct(v){return v==null?null:v+'%';}
+function thumbURL(id){return id?`https://img.youtube.com/vi/${id}/hqdefault.jpg`:null;}
+
+function renderCard(c){
+  const stageRank=STAGE_RANK[c.stage]??1;
+  const flow=STEPS.map(s=>{
+    const r=STEP_RANK[s.key];
+    let cls='';
+    if(r<stageRank)cls='done';
+    else if(r===stageRank)cls=(c.stage==='done'?'done':'current');
+    return `<span class="flow-step ${cls}">${s.label}</span>`;
+  }).join('<span class="flow-sep">›</span>');
+  const st=STATUS[c.stage]||{cls:'fb',text:c.stage};
+  const t=thumbURL(c.youtube_id);
+  const thumb=t?`<div class="archive-thumb"><img src="${t}" alt="${escapeHTML(c.name)}"></div>`:'';
+  const m=c.metrics||{};
+  const cell=(label,val,empty)=>`<div class="archive-metric"><span class="archive-metric-label">${label}</span><span class="archive-metric-val${val==null?' empty':''}">${val==null?'—':escapeHTML(val)}</span></div>`;
+  return `
+    <a href="${escapeHTML(c.page)}" class="archive-card">
+      ${thumb}
+      <div class="archive-card-head">
+        <span class="archive-num">#${escapeHTML(c.number)} / ${escapeHTML(c.date)}</span>
+        <span class="archive-status ${st.cls}">${st.text}</span>
+      </div>
+      <h3 class="archive-title">${escapeHTML(c.name)}</h3>
+      <p class="archive-sub">${escapeHTML(c.subtitle)}</p>
+      <div class="archive-metrics">
+        ${cell('再生数',fmtNum(m.views))}
+        ${cell('CTR',fmtPct(m.ctr))}
+        ${cell('維持率',fmtPct(m.retention))}
+      </div>
+      <div class="archive-flow">${flow}</div>
+      <div class="archive-foot">
+        <span class="archive-tag">${escapeHTML(c.tag)}</span>
+        <span class="archive-arrow">→</span>
+      </div>
+    </a>`;
+}
+
+function renderPattern(p){
+  return `
+    <div class="theme-card">
+      <p class="theme-num">PATTERN ${escapeHTML(p.num)}</p>
+      <h3 class="theme-title">${escapeHTML(p.title)}</h3>
+      <p class="theme-desc">${p.desc}</p>
+      <p class="theme-source">出典: ${escapeHTML(p.source)}</p>
+    </div>`;
+}
+
+(async()=>{
+  try{
+    const res=await fetch('data.json?t='+Date.now());
+    const data=await res.json();
+    document.getElementById('stat-clients').textContent=data.clients.length;
+    document.getElementById('stat-points').textContent=data.clients.reduce((s,c)=>s+(c.fb_points||0),0);
+    document.getElementById('stat-patterns').textContent=data.patterns.length;
+    document.getElementById('archive-grid').innerHTML=data.clients.map(renderCard).join('');
+    document.getElementById('patterns-grid').innerHTML=data.patterns.map(renderPattern).join('');
+  }catch(e){
+    console.error('data.json load error',e);
+    document.getElementById('archive-grid').innerHTML='<p style="color:var(--pink);font-size:13px;">data.json の読み込みに失敗しました</p>';
+  }
+  const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,36 @@
+{
+  "clients": [
+    {
+      "slug": "dankogyo",
+      "page": "dankogyo.html",
+      "number": "01",
+      "date": "2026.04",
+      "name": "暖工業",
+      "subtitle": "船岡綾氏 / 採用ファン化動画 / 1日密着",
+      "tag": "FANTSスタイル / 全15項目",
+      "fb_points": 15,
+      "stage": "shoot",
+      "youtube_id": null,
+      "published_at": null,
+      "metrics": {
+        "views": null,
+        "ctr": null,
+        "retention": null
+      }
+    }
+  ],
+  "patterns": [
+    {
+      "num": "01",
+      "title": "原体験パートの欠落",
+      "desc": "幼少期・学生時代・修行時代といった<strong>原体験パート</strong>が構成に存在しない。社会人以降の話だけだと「成功者の昔話」にしか見えず、視聴者の感情移入が「頑張っている人」止まりで終わる。ファン化に必要な<strong>同一視</strong>が成立しない。",
+      "source": "暖工業 POINT 01"
+    },
+    {
+      "num": "02",
+      "title": "前半に重い話を置くと離脱",
+      "desc": "前半に<strong>重い話（苦労ネタ・感情の山）</strong>を置くと、感情移入が完了していない一般視聴者は離脱。重い話は中盤以降に配置。冒頭30秒は<strong>視聴維持率50%</strong>を基準に、テンポを「構成」と「シーン・カット」で設計する。",
+      "source": "暖工業 POINT 15"
+    }
+  ]
+}
