@@ -55,6 +55,12 @@ section{padding:88px 48px;max-width:980px;margin:0 auto;}
 .archive-metric-label{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;color:var(--light);}
 .archive-metric-val{font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800;color:var(--text);}
 .archive-metric-val.empty{color:var(--light);font-weight:400;}
+.archive-flow{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:16px;padding:10px 12px;background:var(--bg2);border-radius:10px;}
+.flow-step{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--light);padding:4px 9px;border-radius:6px;background:transparent;}
+.flow-step.done{color:#a07800;background:rgba(255,217,61,0.22);}
+.flow-step.current{color:var(--mint);background:rgba(78,205,196,0.15);border:1px solid rgba(78,205,196,0.45);padding:3px 8px;}
+.flow-sep{font-size:11px;color:var(--light);font-family:'Montserrat',sans-serif;}
+
 .archive-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:14px;border-top:1px solid var(--border);}
 .archive-tag{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--light);}
 .archive-arrow{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:var(--text);transition:transform 0.2s;}
@@ -151,6 +157,15 @@ footer{background:var(--text);padding:48px;text-align:center;}
           <span class="archive-metric-label">維持率</span>
           <span class="archive-metric-val empty">—</span>
         </div>
+      </div>
+      <div class="archive-flow">
+        <span class="flow-step done">構成FB</span>
+        <span class="flow-sep">›</span>
+        <span class="flow-step current">撮影</span>
+        <span class="flow-sep">›</span>
+        <span class="flow-step">編集</span>
+        <span class="flow-sep">›</span>
+        <span class="flow-step">公開</span>
       </div>
       <div class="archive-foot">
         <span class="archive-tag">FANTSスタイル / 全15項目</span>
