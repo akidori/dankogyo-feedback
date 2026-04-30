@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>暖工業 — 構成案フィードバック</title>
+<title>SCRIPT FEEDBACK ARCHIVE</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--yellow:#FFD93D;--pink:#FF8FAB;--mint:#4ECDC4;--bg:#ffffff;--bg2:#f9f9fb;--text:#1a1a2e;--mid:#555570;--light:#9999bb;--border:#ebebf4;--grad:linear-gradient(135deg,var(--yellow) 0%,var(--pink) 60%,var(--mint) 100%);--grad-h:linear-gradient(90deg,var(--yellow) 0%,var(--pink) 100%);}
@@ -25,10 +25,11 @@ section{padding:88px 48px;max-width:980px;margin:0 auto;}
 .hero-eyebrow{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--mid);background:#f3f3f8;border:1px solid var(--border);padding:6px 14px;border-radius:100px;display:inline-block;margin-bottom:28px;}
 .hero-title{font-family:'Montserrat',sans-serif;font-size:clamp(42px,7vw,78px);font-weight:900;line-height:1.06;letter-spacing:-2px;color:var(--text);margin-bottom:24px;}
 .hero-title em{font-style:normal;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-sub{font-size:15px;font-weight:300;line-height:1.9;color:var(--mid);max-width:520px;margin-bottom:40px;}
-.hero-toc{display:flex;flex-wrap:wrap;gap:10px;}
-.toc-badge{font-size:11px;font-weight:600;padding:8px 16px;border-radius:100px;border:1.5px solid var(--border);color:var(--mid);background:var(--bg);font-family:'Montserrat',sans-serif;}
-.toc-badge.on{background:var(--grad);border-color:transparent;color:white;}
+.hero-sub{font-size:15px;font-weight:300;line-height:1.9;color:var(--mid);max-width:560px;margin-bottom:32px;}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;}
+.hero-stat{display:flex;flex-direction:column;gap:4px;}
+.hero-stat-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--light);}
+.hero-stat-val{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:900;color:var(--text);}
 
 .sec-eyebrow{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--light);margin-bottom:10px;}
 .sec-eyebrow span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
@@ -36,207 +37,38 @@ section{padding:88px 48px;max-width:980px;margin:0 auto;}
 .sec-lead{font-size:14px;font-weight:300;line-height:1.95;color:var(--mid);margin-bottom:36px;max-width:780px;}
 .sec-lead strong{color:var(--text);font-weight:700;}
 
-.block{background:var(--bg2);border:1.5px solid var(--border);border-radius:18px;padding:32px;margin-bottom:24px;}
-.block-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--light);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
-.block-label::before{content:'';width:18px;height:2px;background:var(--grad);flex-shrink:0;}
-.grad-bar{background:var(--grad);border-radius:12px;padding:18px 24px;color:white;margin-top:20px;font-size:13px;font-weight:300;line-height:1.85;}
-.grad-bar strong{font-weight:700;}
+/* アーカイブカード */
+.archive-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;}
+.archive-card{display:flex;flex-direction:column;background:var(--bg);border:1.5px solid var(--border);border-radius:18px;padding:32px;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;}
+.archive-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad-h);}
+.archive-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(26,26,46,0.08);border-color:var(--pink);}
+.archive-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.archive-num{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:2.5px;color:var(--light);}
+.archive-status{font-size:9px;font-weight:700;letter-spacing:2px;padding:5px 12px;border-radius:100px;font-family:'Montserrat',sans-serif;}
+.archive-status.fb{background:rgba(255,217,61,0.15);color:#a07800;border:1px solid rgba(255,217,61,0.5);}
+.archive-status.shooting{background:rgba(78,205,196,0.12);color:var(--mint);border:1px solid rgba(78,205,196,0.4);}
+.archive-status.published{background:rgba(255,143,171,0.12);color:var(--pink);border:1px solid rgba(255,143,171,0.4);}
+.archive-title{font-size:24px;font-weight:800;line-height:1.3;color:var(--text);margin-bottom:8px;}
+.archive-sub{font-size:12px;color:var(--mid);font-weight:300;line-height:1.7;margin-bottom:22px;}
+.archive-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:16px;background:var(--bg2);border-radius:12px;margin-bottom:18px;}
+.archive-metric{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.archive-metric-label{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;color:var(--light);}
+.archive-metric-val{font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800;color:var(--text);}
+.archive-metric-val.empty{color:var(--light);font-weight:400;}
+.archive-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:14px;border-top:1px solid var(--border);}
+.archive-tag{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--light);}
+.archive-arrow{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:var(--text);transition:transform 0.2s;}
+.archive-card:hover .archive-arrow{transform:translateX(4px);}
 
-.insight-box{background:var(--bg);border-radius:12px;padding:18px 22px;margin-bottom:10px;}
-.insight-box.m{border-left:4px solid var(--mint);}.insight-box.p{border-left:4px solid var(--pink);}.insight-box.y{border-left:4px solid var(--yellow);}
-.ins-tag{font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:8px;font-family:'Montserrat',sans-serif;}
-.insight-box.m .ins-tag{color:var(--mint);}.insight-box.p .ins-tag{color:var(--pink);}.insight-box.y .ins-tag{color:#a07800;}
-.ins-text{font-size:13px;color:var(--mid);font-weight:300;line-height:1.85;}
-.ins-text strong{color:var(--text);font-weight:700;}
-
-/* 指摘カード */
-.point-card{background:var(--bg);border:1.5px solid var(--border);border-radius:18px;padding:36px;margin-bottom:24px;position:relative;overflow:hidden;}
-.point-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
-.point-card.high::before{background:var(--pink);}
-.point-card.mid::before{background:var(--yellow);}
-.point-card.low::before{background:var(--mint);}
-.point-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;gap:16px;flex-wrap:wrap;}
-.point-num{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;color:var(--light);margin-bottom:6px;}
-.point-title{font-size:20px;font-weight:800;line-height:1.4;color:var(--text);}
-.point-priority{font-size:9px;font-weight:700;letter-spacing:2px;padding:5px 12px;border-radius:100px;font-family:'Montserrat',sans-serif;flex-shrink:0;}
-.point-priority.high{background:rgba(255,143,171,0.12);color:var(--pink);border:1px solid rgba(255,143,171,0.4);}
-.point-priority.mid{background:rgba(255,217,61,0.15);color:#a07800;border:1px solid rgba(255,217,61,0.5);}
-.point-priority.low{background:rgba(78,205,196,0.12);color:var(--mint);border:1px solid rgba(78,205,196,0.4);}
-.point-body{display:flex;flex-direction:column;gap:18px;}
-.point-section{display:flex;flex-direction:column;gap:8px;}
-.point-section-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--light);}
-.point-section-text{font-size:13px;color:var(--mid);font-weight:300;line-height:1.9;}
-.point-section-text strong{color:var(--text);font-weight:700;}
-.point-list{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
-.point-list-item{font-size:12px;color:var(--mid);font-weight:300;line-height:1.75;padding-left:14px;position:relative;}
-.point-list-item::before{content:'';position:absolute;left:0;top:9px;width:6px;height:1.5px;background:var(--grad);}
-
-/* 案カード */
-.option-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px;}
-.option-card{border-radius:14px;padding:22px 20px;}
-.option-card.a{background:rgba(255,217,61,0.06);border:1.5px solid rgba(255,217,61,0.35);}
-.option-card.b{background:rgba(78,205,196,0.06);border:1.5px solid rgba(78,205,196,0.35);}
-.option-card.c{background:rgba(255,143,171,0.06);border:1.5px solid rgba(255,143,171,0.35);}
-.option-tag{font-size:9px;font-weight:700;letter-spacing:3px;margin-bottom:10px;font-family:'Montserrat',sans-serif;}
-.option-card.a .option-tag{color:#a07800;}
-.option-card.b .option-tag{color:var(--mint);}
-.option-card.c .option-tag{color:var(--pink);}
-.option-title{font-size:14px;font-weight:700;line-height:1.45;margin-bottom:10px;color:var(--text);}
-.option-desc{font-size:12px;color:var(--mid);font-weight:300;line-height:1.85;}
-.option-desc strong{color:var(--text);font-weight:700;}
-.option-meta{display:flex;flex-direction:column;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
-.option-meta-row{display:flex;gap:8px;align-items:flex-start;font-size:11px;line-height:1.6;}
-.option-meta-label{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;color:var(--light);min-width:50px;flex-shrink:0;margin-top:3px;}
-.option-meta-text{color:var(--mid);font-weight:300;}
-.option-recommend{display:inline-block;font-size:8px;font-weight:700;letter-spacing:2px;padding:3px 8px;border-radius:100px;background:var(--grad-h);color:white;margin-left:8px;font-family:'Montserrat',sans-serif;vertical-align:middle;}
-
-/* コードブロック */
-.code-block{background:#1a1a2e;border-radius:10px;padding:18px 20px;margin-top:14px;font-family:'Montserrat',monospace;font-size:12px;line-height:1.95;color:#e8e8f0;overflow-x:auto;}
-.code-block .arrow{color:var(--mint);}
-.code-block .new{color:var(--yellow);font-weight:700;}
-.code-block .highlight{color:var(--pink);font-weight:600;}
-
-/* 修正テロップ表示 */
-.telop-box{background:#0f0f1f;border-radius:12px;padding:24px 28px;margin-top:14px;text-align:center;color:white;line-height:1.95;}
-.telop-line{font-size:14px;font-weight:500;letter-spacing:1px;margin:6px 0;}
-.telop-line.add{color:var(--yellow);font-weight:700;}
-.telop-line.muted{color:rgba(255,255,255,0.5);font-weight:300;}
-
-/* 質問例リスト */
-.q-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
-.q-item{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;}
-.q-mark{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;color:var(--mint);flex-shrink:0;margin-top:1px;}
-.q-text{font-size:12px;color:var(--mid);font-weight:300;line-height:1.7;}
-.q-text strong{color:var(--text);font-weight:700;}
-
-/* 優先順位リスト */
-.priority-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;}
-.priority-card{border-radius:14px;padding:24px 22px;}
-.priority-card.p1{background:rgba(255,143,171,0.06);border:1.5px solid rgba(255,143,171,0.4);}
-.priority-card.p2{background:rgba(255,217,61,0.06);border:1.5px solid rgba(255,217,61,0.45);}
-.priority-card.p3{background:rgba(78,205,196,0.06);border:1.5px solid rgba(78,205,196,0.4);}
-.priority-tag{font-size:9px;font-weight:700;letter-spacing:3px;margin-bottom:10px;font-family:'Montserrat',sans-serif;display:flex;align-items:center;gap:8px;}
-.priority-card.p1 .priority-tag{color:var(--pink);}
-.priority-card.p2 .priority-tag{color:#a07800;}
-.priority-card.p3 .priority-tag{color:var(--mint);}
-.priority-tag-num{font-size:24px;font-weight:900;letter-spacing:0;}
-.priority-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.45;}
-.priority-items{display:flex;flex-direction:column;gap:6px;}
-.priority-item{font-size:12px;color:var(--mid);font-weight:300;line-height:1.7;padding-left:16px;position:relative;}
-.priority-item::before{content:'→';position:absolute;left:0;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;}
-.priority-card.p1 .priority-item::before{color:var(--pink);}
-.priority-card.p2 .priority-item::before{color:#a07800;}
-.priority-card.p3 .priority-item::before{color:var(--mint);}
-
-/* 理念と行動の一致 */
-.bridge-flow{background:linear-gradient(135deg,rgba(255,217,61,0.08) 0%,rgba(255,143,171,0.06) 50%,rgba(78,205,196,0.08) 100%);border:1.5px solid rgba(255,143,171,0.3);border-radius:16px;padding:28px;margin-top:8px;}
-.bridge-step{display:flex;gap:18px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed rgba(255,143,171,0.25);}
-.bridge-step:last-child{border-bottom:none;padding-bottom:0;}
-.bridge-step:first-child{padding-top:0;}
-.bridge-num{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:900;line-height:1;flex-shrink:0;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;width:38px;}
-.bridge-body{flex:1;}
-.bridge-step-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.5;}
-.bridge-step-desc{font-size:12px;color:var(--mid);font-weight:300;line-height:1.85;}
-.bridge-step-desc strong{color:var(--text);font-weight:700;}
-
-/* 視聴維持率の図 */
-.retention-box{background:#0f0f1f;border-radius:14px;padding:28px 24px;margin-top:14px;color:white;}
-.retention-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--yellow);margin-bottom:18px;}
-.retention-bar{position:relative;height:48px;background:rgba(255,255,255,0.06);border-radius:8px;overflow:hidden;margin-bottom:14px;}
-.retention-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--yellow) 0%,var(--pink) 50%,var(--mint) 100%);border-radius:8px;}
-.retention-marker{position:absolute;top:-6px;bottom:-6px;width:2px;background:white;}
-.retention-marker-label{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:white;white-space:nowrap;background:var(--pink);padding:2px 8px;border-radius:100px;}
-.retention-axis{display:flex;justify-content:space-between;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:1px;}
-.retention-note{margin-top:18px;font-size:12px;color:rgba(255,255,255,0.85);font-weight:300;line-height:1.85;}
-.retention-note strong{color:var(--yellow);font-weight:700;}
-
-/* 行動シーン例 */
-.action-scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px;}
-.action-scene-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:16px;}
-.action-philosophy{font-size:11px;color:var(--pink);font-weight:700;margin-bottom:6px;letter-spacing:0.5px;}
-.action-arrow{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:900;color:var(--light);text-align:center;margin:6px 0;}
-.action-behavior{font-size:11px;color:var(--mint);font-weight:700;margin-bottom:6px;letter-spacing:0.5px;}
-.action-scene-text{font-size:11px;color:var(--mid);font-weight:300;line-height:1.7;margin-top:6px;padding-top:8px;border-top:1px solid var(--border);}
-
-/* 現在の苦労（人材難）カード */
-.struggle-now{background:linear-gradient(135deg,rgba(255,143,171,0.08) 0%,rgba(255,217,61,0.06) 100%);border:1.5px solid rgba(255,143,171,0.3);border-radius:14px;padding:22px 24px;margin-top:8px;}
-.struggle-now-tag{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--pink);margin-bottom:10px;}
-.struggle-now-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.5;}
-.struggle-now-text{font-size:12px;color:var(--mid);font-weight:300;line-height:1.85;}
-.struggle-now-text strong{color:var(--text);font-weight:700;}
-
-/* 理念とお金のバランス */
-.balance-row{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin-top:8px;}
-.balance-side{border-radius:14px;padding:22px 20px;}
-.balance-side.money{background:rgba(255,217,61,0.06);border:1.5px solid rgba(255,217,61,0.4);}
-.balance-side.philosophy{background:rgba(78,205,196,0.06);border:1.5px solid rgba(78,205,196,0.4);}
-.balance-vs{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;color:var(--light);letter-spacing:1px;text-align:center;}
-.balance-tag{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;margin-bottom:10px;}
-.balance-side.money .balance-tag{color:#a07800;}
-.balance-side.philosophy .balance-tag{color:var(--mint);}
-.balance-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.45;}
-.balance-text{font-size:12px;color:var(--mid);font-weight:300;line-height:1.8;}
-.balance-text strong{color:var(--text);font-weight:700;}
-.balance-note{margin-top:12px;padding:14px 18px;background:var(--text);border-radius:10px;color:white;font-size:12px;line-height:1.85;font-weight:300;}
-.balance-note strong{font-weight:700;color:var(--yellow);}
-
-/* コミュニケーションシーン */
-.comm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px;}
-.comm-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:18px 16px;}
-.comm-card.c1{border-top:3px solid var(--yellow);}
-.comm-card.c2{border-top:3px solid var(--pink);}
-.comm-card.c3{border-top:3px solid var(--mint);}
-.comm-card.c4{border-top:3px solid #a07800;}
-.comm-icon{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:1.5px;margin-bottom:6px;}
-.comm-card.c1 .comm-icon{color:#a07800;}
-.comm-card.c2 .comm-icon{color:var(--pink);}
-.comm-card.c3 .comm-icon{color:var(--mint);}
-.comm-card.c4 .comm-icon{color:#a07800;}
-.comm-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.45;}
-.comm-desc{font-size:11px;color:var(--mid);font-weight:300;line-height:1.7;}
-
-/* 第三者証言カード */
-.testimony-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:8px;}
-.testimony-card{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:22px 20px;position:relative;}
-.testimony-card.t1{border-left:4px solid var(--yellow);}
-.testimony-card.t2{border-left:4px solid var(--pink);}
-.testimony-card.t3{border-left:4px solid var(--mint);}
-.t-role-tag{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:8px;}
-.testimony-card.t1 .t-role-tag{color:#a07800;}
-.testimony-card.t2 .t-role-tag{color:var(--pink);}
-.testimony-card.t3 .t-role-tag{color:var(--mint);}
-.t-role-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.45;}
-.t-quote{font-size:12px;color:var(--mid);font-weight:300;line-height:1.85;font-style:italic;padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:10px;}
-.t-quote::before{content:'"';font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;color:var(--light);}
-.t-quote::after{content:'"';font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;color:var(--light);}
-.t-effect{font-size:11px;color:var(--mid);font-weight:300;line-height:1.7;}
-.t-effect strong{color:var(--text);font-weight:700;}
-
-/* 給与待遇カード */
-.salary-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
-.salary-card{border-radius:14px;padding:22px 20px;}
-.salary-card.before{background:#f3f3f8;border:1.5px solid var(--border);}
-.salary-card.after{background:rgba(78,205,196,0.06);border:1.5px solid rgba(78,205,196,0.4);}
-.salary-tag{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;margin-bottom:10px;}
-.salary-card.before .salary-tag{color:var(--light);}
-.salary-card.after .salary-tag{color:var(--mint);}
-.salary-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.45;}
-.salary-text{font-size:12px;color:var(--mid);font-weight:300;line-height:1.85;}
-.salary-text strong{color:var(--text);font-weight:700;}
-
-/* 評価 */
-.eval-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:24px;}
-.eval-card{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:22px 18px;}
-.eval-card.good{border-color:rgba(78,205,196,0.5);background:rgba(78,205,196,0.04);}
-.eval-tag{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mint);margin-bottom:8px;font-family:'Montserrat',sans-serif;}
-.eval-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.5;}
-.eval-desc{font-size:11px;color:var(--mid);font-weight:300;line-height:1.75;}
-
-/* 結論ボックス */
-.conclusion{background:var(--bg2);border:1.5px solid var(--border);border-radius:18px;padding:36px;}
-.conclusion-text{font-size:14px;color:var(--mid);font-weight:300;line-height:2;margin-bottom:14px;}
-.conclusion-text:last-child{margin-bottom:0;}
-.conclusion-text strong{color:var(--text);font-weight:700;}
+/* 共通項カード */
+.theme-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:18px;padding:28px 32px;margin-bottom:14px;}
+.theme-num{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:2.5px;color:var(--light);margin-bottom:10px;}
+.theme-title{font-size:18px;font-weight:800;line-height:1.4;color:var(--text);margin-bottom:12px;}
+.theme-desc{font-size:13px;color:var(--mid);font-weight:300;line-height:1.85;margin-bottom:14px;}
+.theme-desc strong{color:var(--text);font-weight:700;}
+.theme-source{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--light);padding-top:12px;border-top:1px dashed var(--border);}
+.theme-empty{padding:24px;text-align:center;background:var(--bg);border:1.5px dashed var(--border);border-radius:14px;margin-top:18px;}
+.theme-empty p{font-size:11px;color:var(--light);font-weight:300;line-height:1.7;}
 
 footer{background:var(--text);padding:48px;text-align:center;}
 .footer-logo{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;letter-spacing:3px;margin-bottom:10px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;}
@@ -250,9 +82,8 @@ footer{background:var(--text);padding:48px;text-align:center;}
   .nav-links{display:none;}
   section{padding:64px 24px;}
   #hero{padding:120px 24px 72px;}
-  .point-card{padding:24px;}
-  .block{padding:24px;}
-  .conclusion{padding:24px;}
+  .archive-card{padding:24px;}
+  .theme-card{padding:24px;}
   footer{padding:32px 24px;}
 }
 </style>
@@ -260,892 +91,117 @@ footer{background:var(--text);padding:48px;text-align:center;}
 <body>
 
 <nav>
-  <div class="nav-logo">DAN<span>.</span></div>
+  <div class="nav-logo">FB<span>.</span></div>
   <ul class="nav-links">
-    <li><a href="#eval">構成評価</a></li>
-    <li><a href="#points">指摘事項</a></li>
-    <li><a href="#priority">優先順位</a></li>
-    <li><a href="#conclusion">総評</a></li>
+    <li><a href="#archive">台本一覧</a></li>
+    <li><a href="#themes">共通項</a></li>
   </ul>
-  <div class="nav-date">DOCUMENTARY / FEEDBACK</div>
+  <div class="nav-date">SCRIPT FEEDBACK / 2026</div>
 </nav>
 
 <div id="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">DANKOGYO / SCRIPT FEEDBACK / 2026</p>
-    <h1 class="hero-title">SCRIPT<br><em>FEEDBACK</em><br>DANKOGYO</h1>
-    <p class="hero-sub">暖工業 船岡綾氏 密着動画の構成案について、目的（採用＋集客＋ファン化）に対する構造的な観点からフィードバックをまとめました。</p>
-    <div class="hero-toc">
-      <span class="toc-badge on">01 構成評価</span>
-      <span class="toc-badge">02 指摘事項</span>
-      <span class="toc-badge">03 優先順位</span>
-      <span class="toc-badge">04 総評</span>
+    <p class="hero-eyebrow">SCRIPT FEEDBACK ARCHIVE / 2026</p>
+    <h1 class="hero-title">SCRIPT<br><em>FEEDBACK</em></h1>
+    <p class="hero-sub">クライアント別に動画台本の構成フィードバックをアーカイブ。再生数・CTR・視聴維持率の実績データと合わせて記録し、案件をまたいだ<strong>共通の指摘パターン</strong>を抽出します。</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-label">CLIENTS</span>
+        <span class="hero-stat-val">1</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">FB POINTS</span>
+        <span class="hero-stat-val">15</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">PATTERNS</span>
+        <span class="hero-stat-val">2</span>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ===== 01 構成評価 ===== -->
-<section id="eval">
-  <div class="sec-eyebrow reveal"><span>01</span> / 構成案の評価</div>
-  <h2 class="sec-title reveal">取材設計として<br>完成度は高い</h2>
-  <p class="sec-lead reveal">20分構成、3山場構造、感情曲線の振れ幅を最大化する設計思想、ドローン不使用への代替案、<strong>取材経験が反映された質問設計</strong>など、構成案そのものは完成度が高いです。特に以下の4点は、新人ディレクターには真似できない取材設計の精度です。</p>
+<!-- ===== 01 台本一覧 ===== -->
+<section id="archive">
+  <div class="sec-eyebrow reveal"><span>01</span> / 台本フィードバック一覧</div>
+  <h2 class="sec-title reveal">クライアント別<br>フィードバック</h2>
+  <p class="sec-lead reveal">各カードをクリックで詳細フィードバックへ。<strong>FB済み → 撮影済 → 公開済</strong>と進行に合わせて実績データを更新。</p>
 
-  <div class="eval-grid reveal">
-    <div class="eval-card good">
-      <p class="eval-tag">STRENGTH 01</p>
-      <p class="eval-title">撮影3層構造</p>
-      <p class="eval-desc">朝の車内→昼休憩→固定カメラの順で被写体の心理的ガードを段階的に下げる設計。経験者の発想。</p>
-    </div>
-    <div class="eval-card good">
-      <p class="eval-tag">STRENGTH 02</p>
-      <p class="eval-title">NG質問の明文化</p>
-      <p class="eval-desc">「大変でしたね」「どう乗り越えましたか」を排除。抽象回答を防ぐための質問設計が的確。</p>
-    </div>
-    <div class="eval-card good">
-      <p class="eval-tag">STRENGTH 03</p>
-      <p class="eval-title">苦労ネタ6本ストック</p>
-      <p class="eval-desc">質問固定リスクを回避し、当日最も深く語れたネタを選択する設計。再現性が高い。</p>
-    </div>
-    <div class="eval-card good">
-      <p class="eval-tag">STRENGTH 04</p>
-      <p class="eval-title">感情曲線の数値設計</p>
-      <p class="eval-desc">各シーンに感情値を設定し、谷と山の落差を意図的に作る設計。編集の判断基準が明確。</p>
-    </div>
-  </div>
+  <div class="archive-grid reveal">
 
-  <div class="block reveal">
-    <p class="block-label">ただし — 目的に対しての構造的弱点</p>
-    <p class="ins-text" style="font-size:14px;line-height:2;">
-      その上で、目的（採用＋集客＋ファン化）に対しては<strong>構造的に弱い点が3つ</strong>あります。<br>
-      最大の問題は、現状の構成が<strong>社会人になって以降の物語だけで完結している</strong>こと。視聴者がファン化するために必要な「自分と社長を重ねる装置」が組み込まれていません。
-    </p>
-    <div class="grad-bar">
-      <strong>結論：</strong>取材設計の精度は十分。あとは<strong>物語の起点（原体験パート）</strong>と<strong>視聴者共感装置</strong>を組み込めば、業界紹介動画から採用ファン化動画へとレベルが一段上がります。
-    </div>
-  </div>
-</section>
+    <a href="dankogyo.html" class="archive-card">
+      <div class="archive-card-head">
+        <span class="archive-num">#01 / 2026.04</span>
+        <span class="archive-status fb">構成FB済</span>
+      </div>
+      <h3 class="archive-title">暖工業</h3>
+      <p class="archive-sub">船岡綾氏 / 採用ファン化動画 / 1日密着</p>
+      <div class="archive-metrics">
+        <div class="archive-metric">
+          <span class="archive-metric-label">再生数</span>
+          <span class="archive-metric-val empty">—</span>
+        </div>
+        <div class="archive-metric">
+          <span class="archive-metric-label">CTR</span>
+          <span class="archive-metric-val empty">—</span>
+        </div>
+        <div class="archive-metric">
+          <span class="archive-metric-label">維持率</span>
+          <span class="archive-metric-val empty">—</span>
+        </div>
+      </div>
+      <div class="archive-foot">
+        <span class="archive-tag">FANTSスタイル / 全15項目</span>
+        <span class="archive-arrow">→</span>
+      </div>
+    </a>
 
-<div class="divider"></div>
+    <!-- 新規台本はここにカードを追加 -->
 
-<!-- ===== 02 指摘事項 ===== -->
-<section id="points">
-  <div class="sec-eyebrow reveal"><span>02</span> / 構造的指摘</div>
-  <h2 class="sec-title reveal">指摘事項<br>全15項目</h2>
-
-  <!-- 指摘① -->
-  <div class="point-card high reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 01</p>
-        <h3 class="point-title">原体験パートが欠落している</h3>
-      </div>
-      <span class="point-priority high">最優先</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">現状、シーン05（山場①）の苦労ネタが「独立してから一番きつかった時期」になっており、<strong>社会人になって以降の話だけで動画が完結</strong>しています。幼少期・学生時代・修行時代といった原体験パートが構成のどこにも存在しない。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">冒頭で「29歳・施工600件・完全自社施工」を提示するため、視聴者には<strong>最初から強い人</strong>として船岡さんが映ります。その後、苦労パートに入っても「成功者の昔話」にしか見えず、視聴者の感情移入が「仕事を頑張っている人」止まりで終わる。</p>
-        <p class="point-section-text">ファン化に必要なのは「<strong>この人は自分の代わりに人生を歩んでくれた人</strong>」という同一視。これは社会人以降の苦労では作れず、視聴者が自分の人生と重ねられる時期＝学生時代・進路選択・家族との対立といった原体験パートからしか生まれません。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">物語構造での欠落</p>
-        <div class="point-list">
-          <p class="point-list-item">キャンベルの英雄の旅：「日常の世界」「冒険への誘い」が抜けている</p>
-          <p class="point-list-item">シンデレラ構造：「底からの出発点」が抜けている</p>
-          <p class="point-list-item">ストーリースパイン：「Once upon a time」が抜けている</p>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">修正案</p>
-        <div class="option-grid">
-          <div class="option-card a">
-            <p class="option-tag">A案<span class="option-recommend">推奨</span></p>
-            <p class="option-title">シーン02直後に独立シーンとして挿入</p>
-            <p class="option-desc">人物・会社紹介の直後（02:30付近）に原体験パートを1分30秒〜2分追加。</p>
-            <div class="option-meta">
-              <div class="option-meta-row"><span class="option-meta-label">PRO</span><span class="option-meta-text">過去パートとして独立し、視聴者の整理が楽</span></div>
-              <div class="option-meta-row"><span class="option-meta-label">CON</span><span class="option-meta-text">1日密着の流れが冒頭で一度途切れる</span></div>
-            </div>
-          </div>
-          <div class="option-card b">
-            <p class="option-tag">B案</p>
-            <p class="option-title">山場①の中に統合</p>
-            <p class="option-desc">独立後の苦労 → さらに遡って原体験、と二段階で深掘り。</p>
-            <div class="option-meta">
-              <div class="option-meta-row"><span class="option-meta-label">PRO</span><span class="option-meta-text">1日密着の流れを崩さない</span></div>
-              <div class="option-meta-row"><span class="option-meta-label">CON</span><span class="option-meta-text">山場①が4-5分に膨らみ感情曲線が複雑化</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">尺の捻出案</p>
-        <div class="point-list">
-          <p class="point-list-item">シーン04（朝の準備）2分 → 1分30秒（米子の景色を絞る）</p>
-          <p class="point-list-item">シーン07（メイン仕事②）3分 → 2分30秒</p>
-          <p class="point-list-item">シーン09（完成パート）1分30秒 → 1分</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘② -->
-  <div class="point-card high reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 02</p>
-        <h3 class="point-title">視聴者の不満との共感装置がない</h3>
-      </div>
-      <span class="point-priority high">最優先</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">採用ターゲットが普段抱えている悩みと、船岡さんの過去のどこかを重ねる設計が<strong>構成案のどこにも存在しません</strong>。現状の構成は「船岡さんの物語を視聴者が観察する」構造で、「視聴者と船岡さんが感情的に同じ場所に立つ瞬間」が設計されていない。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">採用動画として機能するには、視聴者が「<strong>この社長は自分のことを分かってくれている</strong>」と感じる必要がある。これは情報提示では起きず、船岡さん自身が過去に視聴者と同じ悩みを抱えていたことを描かないと共感装置として作動しない。</p>
-        <p class="point-section-text">集客側も同じで、施主が「この人なら頼める」と思うのは技術力ではなく<strong>人としての厚み</strong>。厚みは視聴者が共感できる過去の弱さからしか生まれません。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">原体験パートに織り込むべき共感ポイント候補</p>
-        <div class="insight-box m">
-          <p class="ins-tag">EMPATHY POINTS</p>
-          <p class="ins-text">「自分の仕事に意味を感じられない」 → 学生時代の同じ悩み<br>「手に職をつけたいけど何をやればいいか分からない」 → 進路選択の迷い<br>「親や周囲に反対された」 → 建設業を選んだ時の家族との対立<br>「不器用で人より時間がかかる」 → 修行時代の挫折</p>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">推奨インタビュー質問</p>
-        <div class="q-list">
-          <div class="q-item"><span class="q-mark">Q1</span><span class="q-text">学生時代、自分の進路について悩んだ時期はありましたか</span></div>
-          <div class="q-item"><span class="q-mark">Q2</span><span class="q-text">建設業を選んだ時、周りの反応はどうでしたか</span></div>
-          <div class="q-item"><span class="q-mark">Q3</span><span class="q-text">修行を始めた頃、一番自信がなかったことは何ですか</span></div>
-          <div class="q-item"><span class="q-mark">Q4</span><span class="q-text">他の仕事をしようと思ったことはありますか。それはなぜやめましたか</span></div>
-        </div>
-        <p class="point-section-text" style="margin-top:10px;font-size:12px;">これらの質問は、撮影設計シートのS1〜S4と<strong>同じ粒度</strong>（時系列・人物・台詞を特定する形式）で設計すべき。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘③ -->
-  <div class="point-card high reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 03</p>
-        <h3 class="point-title">シンデレラ構造が機能していない</h3>
-      </div>
-      <span class="point-priority high">優先度高</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">シーン01のつかみで「29歳・施工600件・完全自社施工」を一気に提示するため、視聴者は<strong>最初から頂上を見せられている状態</strong>で動画を視聴開始する。この構造のまま苦労パートに入ると、苦労が「成功者の余裕のある昔話」に見えてしまう。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">トレードオフの構造</p>
-        <p class="point-section-text">現状の構成は<strong>「牽引性」と「シンデレラ構造」がトレードオフ</strong>になっている状態。冒頭の数字テロップで離脱率を下げる効果はあるが、その代償としてシンデレラ構造の落差が殺されている。ただし、冒頭の牽引性自体は維持すべき（YouTubeのアルゴリズム的に冒頭5秒の離脱を防ぐため）。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">「先出し→落差」の二重構造</p>
-        <div class="code-block">
-冒頭：頂上を見せる<span class="arrow">（牽引）</span>
-　↓
-中盤前半：底を見せる<span class="highlight">（落差）</span>
-　↓
-山場：頂上に戻る<span class="arrow">（カタルシス）</span>
-        </div>
-        <p class="point-section-text" style="margin-top:14px;">映画でいうメメント型・バットマン・ビギンズ型の構造。視聴者は冒頭の頂上を記憶した状態で底を見るため、<strong>落差を二重に体験</strong>できる。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">修正案A（最小修正・推奨）</p>
-        <p class="point-section-text">冒頭テロップの最後に予告線を1行足すだけで成立する。</p>
-        <div class="telop-box">
-          <p class="telop-line">鳥取県米子市 外構工事</p>
-          <p class="telop-line">暖工業 代表 船岡 綾 29歳</p>
-          <p class="telop-line">米子で施工600件・完全自社施工</p>
-          <p class="telop-line add">——でも、5年前は</p>
-          <p class="telop-line muted">今日この男に1日密着</p>
-        </div>
-        <p class="point-section-text" style="margin-top:14px;">最後から2行目の「<strong>——でも、5年前は</strong>」が落差予告として機能し、視聴者は原体験パートまで離脱しない。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">修正案B（より強い設計）</p>
-        <p class="point-section-text">冒頭で数字を出さず、現場の凄さを<strong>映像で見せるだけ</strong>にとどめる。数字（600件、29歳代表）は中盤以降で出す。シンデレラ構造の純度は最大化するが、撮影クオリティが高いことが前提になる。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘④ -->
-  <div class="point-card mid reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 04</p>
-        <h3 class="point-title">転機のセリフ設計が他者依存</h3>
-      </div>
-      <span class="point-priority mid">優先度中</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">シーン06（転機）で引き出したいセリフが「〇〇さんに言われた」「あの一言で全部変わった」になっており、<strong>転機の引き金が他者の一言</strong>として設計されている。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">採用ターゲットがこのセリフを聞いた時、「自分にもそういう人がいれば変われるのに」と<strong>外部依存の思考</strong>になってしまう。「自分には師匠がいないから無理だ」という結論を引き出してしまうリスクがある。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">修正案</p>
-        <p class="point-section-text"><strong>他者の一言＋自分の決断</strong>の2層構造にする。引き出すべきセリフ例：</p>
-        <div class="point-list">
-          <p class="point-list-item">「〇〇さんに言われて、<strong>自分でこう決めた</strong>」</p>
-          <p class="point-list-item">「誰かに言われたわけじゃなく、ある日<strong>自分で気づいた</strong>」</p>
-          <p class="point-list-item">「あの一言があって、<strong>それから自分で動き始めた</strong>」</p>
-        </div>
-        <p class="point-section-text" style="margin-top:10px;">質問設計としては、現状のS3「その状況から、最初にやったことは？」の後に「<strong>それは誰かに言われてですか、自分で決めたんですか</strong>」を追加する。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑤ -->
-  <div class="point-card mid reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 05</p>
-        <h3 class="point-title">山場②の決め台詞が綺麗すぎる</h3>
-      </div>
-      <span class="point-priority mid">優先度中</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">シーン08の決め台詞候補（「ただいまって帰るのが楽しみになった」「毎日通る場所を、俺が作ってる」「お客さんのありがとうが全部」）が<strong>綺麗にまとまりすぎている</strong>。台本っぽく聞こえる。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">ドキュメンタリーで本当に効くのは、<strong>言葉が崩れている瞬間</strong>。「えーと、なんていうか…毎日通る場所をさ、俺が作ってるって思うと、まあ…それだけなんですけど」のような言い淀みや沈黙が混じった発話。完璧に整った言葉は、視聴者の脳に「演出された」という信号を送る。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">修正案</p>
-        <div class="insight-box y">
-          <p class="ins-tag">DIRECTION</p>
-          <p class="ins-text">撮影現場で、決め台詞を引き出す前に船岡さんに事前共有する：「<strong>綺麗にまとめないでください。思ったまま喋ってください。言い淀んでも、沈黙が入っても大丈夫です</strong>」</p>
-        </div>
-        <p class="point-section-text">撮影設計シートのS2にある「そのままの言葉で」というルールを、C3〜C5の核心質問にも適用する。編集時には<strong>綺麗すぎるテイクより、崩れているテイク</strong>を優先採用する判断基準を持つ。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑥ -->
-  <div class="point-card mid reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 06</p>
-        <h3 class="point-title">コールドオープンの素材依存リスク</h3>
-      </div>
-      <span class="point-priority mid">優先度中</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">シーン01で「山場②の決め台詞5秒を流用」する設計で、保険として「午前中に山場②を一度先撮りしておく」となっている。これは論理が逆転している。山場②は<strong>1日の積み重ねの果てに出る言葉</strong>として設計されているのに、午前中に先撮りすると感情が乗り切らない。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">午前中の先撮りは「演技された決め台詞」になる。視聴者は無意識に「整いすぎた言葉」を察知して、その後の20分の信頼度が下がる。さらに、夕方の本番テイクで船岡さんが<strong>同じ言葉を繰り返してしまう</strong>リスクも高い。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">修正案</p>
-        <div class="option-grid">
-          <div class="option-card a">
-            <p class="option-tag">A案<span class="option-recommend">推奨</span></p>
-            <p class="option-title">別日に撮影したインタビューから流用</p>
-            <p class="option-desc">撮影前日もしくは翌日に別撮りインタビューを行い、コールドオープン用の決め台詞をそこから持ってくる。本撮影の山場②の純度を守れる。</p>
-          </div>
-          <div class="option-card b">
-            <p class="option-tag">B案</p>
-            <p class="option-title">本人発話を使わない構成</p>
-            <p class="option-desc">過去施工の映像 + 現在の現場映像 + 環境音 + テロップだけでコールドオープンを構成する。本人発話を冒頭に入れない設計。</p>
-          </div>
-          <div class="option-card c">
-            <p class="option-tag">C案</p>
-            <p class="option-title">他者からの言葉を流用</p>
-            <p class="option-desc">「ただいまって帰るのが楽しみになった」のような、お客さんから言われた言葉をテロップで先出し。本人発話ではないので感情の純度を犠牲にしない。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑦ 第三者証言 -->
-  <div class="point-card mid reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 07</p>
-        <h3 class="point-title">第三者証言が不在で後半パートが弱い</h3>
-      </div>
-      <span class="point-priority mid">優先度中</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">現状の構成は<strong>船岡さん本人の自己申告だけで20分が完結</strong>している。本人が「お客さんを大事にしている」「職人を大切にしている」と語っても、視聴者には<strong>主観的な美化</strong>に見えるリスクがある。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">採用動画として最も信頼度が高いのは<strong>「本人がいない場所で従業員が語る船岡さんの姿」</strong>。本人の前では言えない本音が出るため、視聴者の脳に「これは演出ではない」という強い信号を送る。</p>
-        <p class="point-section-text">特に山場②（誇り）の後に第三者証言が入ると、本人の言葉が<strong>客観的事実として裏付けられる</strong>。これが採用決定の最後の一押しになる。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">追加すべき第三者証言</p>
-        <div class="testimony-grid">
-          <div class="testimony-card t1">
-            <p class="t-role-tag">PERSON 01</p>
-            <p class="t-role-title">従業員（船岡さん不在で撮影）</p>
-            <p class="t-quote">船岡さんって、現場ではどんな人ですか？</p>
-            <p class="t-effect">本人がいない場所で撮影することで、<strong>建前を排除した本音</strong>が出る。「厳しいけど」「実は不器用で」のような人間味のあるエピソードが拾える。</p>
-          </div>
-          <div class="testimony-card t2">
-            <p class="t-role-tag">PERSON 02</p>
-            <p class="t-role-title">クライアント（過去の施主）</p>
-            <p class="t-quote">なぜ暖工業に頼んだんですか？</p>
-            <p class="t-effect">価格・技術以外の<strong>選定理由</strong>を引き出せる。「人柄が信頼できた」「他社と違って〜」という発話は、集客側の説得力を一段上げる。</p>
-          </div>
-          <div class="testimony-card t3">
-            <p class="t-role-tag">PERSON 03</p>
-            <p class="t-role-title">側近（家族・パートナー・古参職人）</p>
-            <p class="t-quote">船岡さんが一番大切にしてることは？</p>
-            <p class="t-effect"><strong>長期間近くで見てきた人だけが知る一面</strong>を引き出す。船岡さん自身も忘れている過去のエピソードが出ることが多い。</p>
-          </div>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">挿入位置の推奨</p>
-        <p class="point-section-text">山場②（シーン08）の<strong>直後</strong>、もしくは<strong>完成パート（シーン09）の中</strong>。山場②で本人が誇りを語った直後に第三者証言が入ると、「本人の言葉 → 周囲の証言 → 客観的事実として確定」の三段構造になり、感情の説得力が最大化する。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">撮影の注意点</p>
-        <div class="insight-box p">
-          <p class="ins-tag">CAUTION</p>
-          <p class="ins-text"><strong>船岡さんが絶対にいない環境で撮る</strong>。同じ部屋にいるだけで本音は出ない。撮影日を別日に分ける、もしくは船岡さんが現場を離れている時間帯に撮影する設計が必須。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑧ 給与待遇 -->
-  <div class="point-card mid reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 08</p>
-        <h3 class="point-title">給与・待遇の透明化が欠落</h3>
-      </div>
-      <span class="point-priority mid">優先度中</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">現状の構成には、<strong>船岡さんが従業員のために具体的にやっていること</strong>が描かれていない。「職人を大切にしている」という抽象的な思想は語られても、<strong>給与・休暇・福利厚生といった具体的な待遇</strong>が開示されていない。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">採用ターゲットが応募の最終判断をする時、<strong>「思想」ではなく「待遇」</strong>を見ている。建設業界は特に「キツい・キタナイ・キケン」のイメージが強く、応募者は<strong>その業界イメージを覆す具体的事実</strong>を求めている。</p>
-        <p class="point-section-text">船岡さんが従業員のためにやっている具体的な施策（給与水準、休暇制度、独立支援、家族手当など）を開示することで、<strong>「この社長は本気で職人のことを考えている」という証明</strong>になる。思想を語るより、施策を語る方が10倍説得力がある。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">業界相場との対比構造</p>
-        <div class="salary-row">
-          <div class="salary-card before">
-            <p class="salary-tag">INDUSTRY AVERAGE</p>
-            <p class="salary-title">建設業界の一般的なイメージ</p>
-            <p class="salary-text">日給制、休みが少ない、独立しないと稼げない、社会保険が曖昧、職人は使い捨て。<strong>応募者が抱えている不安</strong>。</p>
-          </div>
-          <div class="salary-card after">
-            <p class="salary-tag">DANKOGYO</p>
-            <p class="salary-title">暖工業がやっていること（例）</p>
-            <p class="salary-text">月給制、社会保険完備、〇〇歳で年収〇〇万円、独立支援制度あり、資格取得費用を会社負担、など<strong>具体的な数字で語れる施策</strong>。</p>
-          </div>
-        </div>
-        <p class="point-section-text" style="margin-top:14px;">この対比が動画の中に1分でも入ると、<strong>業界イメージを覆す証拠</strong>として機能する。応募の意思決定が劇的に変わる。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">引き出すべき発話</p>
-        <div class="q-list">
-          <div class="q-item"><span class="q-mark">Q1</span><span class="q-text">従業員のために、業界の常識と違うことをやっていますか</span></div>
-          <div class="q-item"><span class="q-mark">Q2</span><span class="q-text">給与体系で、特にこだわっていることは何ですか</span></div>
-          <div class="q-item"><span class="q-mark">Q3</span><span class="q-text">なぜそうしているんですか（背景にある思想）</span></div>
-          <div class="q-item"><span class="q-mark">Q4</span><span class="q-text">独立を目指す職人にはどんなサポートをしていますか</span></div>
-        </div>
-        <p class="point-section-text" style="margin-top:10px;">Q3が最重要。<strong>「給与の数字」と「その背景にある思想」を接続</strong>することで、思想と施策が同じ重さで響く。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">挿入位置の推奨</p>
-        <p class="point-section-text"><strong>第三者証言（指摘⑦）の直後</strong>に置くのが最強。「従業員が船岡さんを語る → その理由が給与・待遇の具体施策にある」という流れになり、思想 → 証言 → 数字の三段構造で従業員への想いが視聴者に伝わる。</p>
-        <div class="insight-box m">
-          <p class="ins-tag">STRUCTURE</p>
-          <p class="ins-text">山場②（誇り）→ 第三者証言（証明）→ 給与待遇（数字の裏付け）→ 完成パート（余韻）→ CTA<br><br>この流れが組めると、<strong>後半パートが現状の倍以上の強度</strong>になる。採用動画として「思想だけ」「数字だけ」のどちらかに偏った動画より、両方を備えた動画の方が応募率が高い。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑨ 現在の人材難 -->
-  <div class="point-card mid reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 09</p>
-        <h3 class="point-title">現在進行形の人材難を開示する</h3>
-      </div>
-      <span class="point-priority mid">優先度中</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">現状の苦労パートは<strong>過去の試練</strong>（独立後の資金繰り、親方との別れなど）に集中しており、<strong>現在進行形で抱えている苦労</strong>が描かれていない。「今は安定して成功している社長」として完結してしまっている。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">採用動画の核心は「<strong>応募者が必要とされている実感</strong>」を作ること。社長が「過去は大変だったけど今は順調」だと、応募者は「<strong>自分が入ってもこの会社の役に立てるのか？</strong>」という不安を持つ。</p>
-        <p class="point-section-text">逆に、現在進行形で人材難を語ると、応募者は「<strong>自分が必要とされている</strong>」「<strong>自分の応募が船岡さんを救う</strong>」という能動的な動機を持つ。これは過去の苦労話よりも応募率が高い。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">引き出すべき発話</p>
-        <div class="struggle-now">
-          <p class="struggle-now-tag">CURRENT STRUGGLE</p>
-          <p class="struggle-now-title">「正直、今も人が足りない」</p>
-          <p class="struggle-now-text"><strong>従業員もバイトも含めて、今こんな人を探している</strong>という具体的な発話を引き出す。「経験者じゃなくていい」「未経験でも教える」「こういう人なら一緒にやりたい」という具体性が、応募者の「自分でも応募できるかも」という心理スイッチを入れる。</p>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">推奨インタビュー質問</p>
-        <div class="q-list">
-          <div class="q-item"><span class="q-mark">Q1</span><span class="q-text">今、会社で困っていることは何ですか</span></div>
-          <div class="q-item"><span class="q-mark">Q2</span><span class="q-text">本当はどんな人と一緒に働きたいですか</span></div>
-          <div class="q-item"><span class="q-mark">Q3</span><span class="q-text">未経験でもいいですか。どんなタイプの人なら歓迎しますか</span></div>
-          <div class="q-item"><span class="q-mark">Q4</span><span class="q-text">もし今、応募してくれる人がいたら、最初に何を伝えますか</span></div>
-        </div>
-        <p class="point-section-text" style="margin-top:10px;">Q4が特に強い。<strong>応募者に直接語りかける構造</strong>になるため、視聴者の感情移入が最大化する。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">挿入位置の推奨</p>
-        <p class="point-section-text"><strong>給与待遇（指摘⑧）の直後</strong>もしくは<strong>第三者証言（指摘⑦）の中</strong>。給与待遇で安心させた直後に「でも今、人が足りない」と現在の苦労を語ると、<strong>応募者は安心と必要性の両方を同時に受け取る</strong>。これが応募の意思決定を最も強く後押しする。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑩ 理念とお金のバランス -->
-  <div class="point-card high reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 10</p>
-        <h3 class="point-title">理念とお金のバランス設計【重要】</h3>
-      </div>
-      <span class="point-priority high">優先度高</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">なぜこれが重要か</p>
-        <p class="point-section-text">指摘⑧（給与待遇の透明化）には<strong>運用上の落とし穴</strong>がある。給与・待遇の話を強く出しすぎると、<strong>お金目当ての応募者ばかりが集まる</strong>。これは長期的に見て会社の文化を破壊するリスクが高い。</p>
-        <p class="point-section-text">建設業のような<strong>職人文化が根幹にある業界</strong>では、お金で動く人材は定着しない。「もっと条件のいい会社が現れたら辞める」というマインドの人ばかり集まると、せっかくの採用コストが無駄になる。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">理念とお金の対比構造</p>
-        <div class="balance-row">
-          <div class="balance-side money">
-            <p class="balance-tag">MONEY ONLY</p>
-            <p class="balance-title">給与・待遇だけを語ると</p>
-            <p class="balance-text">お金目当ての応募者が増える。条件で動く人材は<strong>条件で去る</strong>。会社の文化が崩れる。</p>
-          </div>
-          <p class="balance-vs">VS</p>
-          <div class="balance-side philosophy">
-            <p class="balance-tag">PHILOSOPHY + MONEY</p>
-            <p class="balance-title">理念と給与をセットで語ると</p>
-            <p class="balance-text">理念に共感した上で、<strong>条件にも納得した</strong>応募者だけが残る。フィルタリングが効く。</p>
-          </div>
-        </div>
-        <div class="balance-note">
-          <strong>鉄則：</strong>給与の話を出す時は、必ず<strong>「なぜそうしているのか」という理念</strong>を同じ尺で語る。「うちは月給制です」だけで終わらせず、「<strong>職人を使い捨てにしたくないから月給制にしている</strong>」のように、理念と施策をセットで提示する。これだけで応募者の質が劇的に変わる。
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">構成上の実装</p>
-        <p class="point-section-text">給与待遇パート（指摘⑧）の中で、<strong>必ず船岡さんの理念発話</strong>を挟む。具体的な構成例：</p>
-        <div class="code-block">
-給与制度の事実提示<span class="arrow">（テロップ）</span>
-　↓
-<span class="highlight">なぜそうしているか（船岡さんの理念発話）</span>
-　↓
-独立支援制度の事実提示<span class="arrow">（テロップ）</span>
-　↓
-<span class="highlight">なぜそうしているか（船岡さんの理念発話）</span>
-　↓
-資格取得支援の事実提示<span class="arrow">（テロップ）</span>
-　↓
-<span class="highlight">なぜそうしているか（船岡さんの理念発話）</span>
-        </div>
-        <p class="point-section-text" style="margin-top:14px;">テロップ（事実）と発話（理念）を交互に繰り返すことで、視聴者は「<strong>この社長は数字で釣っているのではなく、思想に基づいて施策を作っている</strong>」と理解する。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">引き出すべき理念発話</p>
-        <div class="insight-box m">
-          <p class="ins-tag">PHILOSOPHY</p>
-          <p class="ins-text">船岡さんに事前に伝えておくべきこと：<br>「<strong>給与の話だけで終わらせず、なぜその制度にしたのか、思想を必ず語ってください</strong>」<br><br>例：「月給制にした理由は〜」「独立支援をやっている理由は〜」「資格取得を会社負担にしている理由は〜」</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑪ コミュニケーションシーン -->
-  <div class="point-card mid reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 11</p>
-        <h3 class="point-title">コミュニケーションシーンで現場の空気感を可視化</h3>
-      </div>
-      <span class="point-priority mid">優先度中</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">現状の構成は<strong>船岡さん単独のシーン</strong>が中心で、従業員やクライアントとの<strong>やり取りの空気感</strong>が描かれていない。視聴者は「船岡さんがどんな人か」は分かっても「<strong>船岡さんと一緒に働くとどんな感じか</strong>」が分からない。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">なぜ問題か</p>
-        <p class="point-section-text">応募者が本当に知りたいのは「自分がここに入って毎日どう過ごすか」。インタビュー単独では伝わらない<strong>会話のテンポ、笑いの間、信頼関係の温度</strong>は、コミュニケーションシーンでしか映せない。</p>
-        <p class="point-section-text">集客側でも同じで、施主は「この社長と打ち合わせするとどんな感じか」を見たい。<strong>営業トークではない自然な会話</strong>が映ると、施主の「会ってみたい」という感情が一段強くなる。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">追加すべきコミュニケーションシーン</p>
-        <div class="comm-grid">
-          <div class="comm-card c1">
-            <p class="comm-icon">SCENE 01</p>
-            <p class="comm-title">朝礼・打ち合わせ</p>
-            <p class="comm-desc">従業員と今日の作業を確認する場面。指示の出し方、雑談の混じり方で<strong>上下関係の温度</strong>が伝わる。</p>
-          </div>
-          <div class="comm-card c2">
-            <p class="comm-icon">SCENE 02</p>
-            <p class="comm-title">施主との現場確認</p>
-            <p class="comm-desc">クライアントとの打ち合わせ場面。営業トークではない<strong>自然な信頼関係</strong>が映ると集客側に強く効く。</p>
-          </div>
-          <div class="comm-card c3">
-            <p class="comm-icon">SCENE 03</p>
-            <p class="comm-title">休憩中の雑談</p>
-            <p class="comm-desc">仕事の合間の何気ない会話。<strong>笑い・冗談・愚痴</strong>といった素の関係性が見える。最も応募者に効くシーン。</p>
-          </div>
-          <div class="comm-card c4">
-            <p class="comm-icon">SCENE 04</p>
-            <p class="comm-title">職人への指導場面</p>
-            <p class="comm-desc">若手職人に技術を教える場面。<strong>叱り方・褒め方・教え方</strong>に船岡さんの人間性が出る。職人文化の継承も伝わる。</p>
-          </div>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">撮影上の注意点</p>
-        <div class="insight-box y">
-          <p class="ins-tag">DIRECTION</p>
-          <p class="ins-text"><strong>カメラを意識させない撮影</strong>が必須。固定カメラを設置して長回しで回す、もしくはカメラマンが空気のように現場に溶け込む。「いつも通りやってください」と事前に伝え、最初の10分は使い物にならない前提で素材を回収する。<br><br>編集時には<strong>会話の中身よりも空気感</strong>を優先。情報量が少なくても、笑顔・うなずき・間が映っていればOK。</p>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">挿入位置の推奨</p>
-        <p class="point-section-text">単独のシーンとして独立させるのではなく、<strong>既存のシーンに織り込む</strong>のが自然。</p>
-        <div class="point-list">
-          <p class="point-list-item">朝礼シーン → シーン03（朝の準備）に追加</p>
-          <p class="point-list-item">施主との現場確認 → シーン04（メイン仕事①）に追加</p>
-          <p class="point-list-item">休憩中の雑談 → 山場①（シーン05）の前にクッションとして挿入</p>
-          <p class="point-list-item">職人への指導 → シーン07（メイン仕事②）に追加</p>
-        </div>
-        <p class="point-section-text" style="margin-top:10px;">既存シーンに30秒〜1分ずつ織り込むだけで、<strong>20分の動画全体の空気感が変わる</strong>。尺を大きく増やさずに密度だけ上げられる。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑫ 理念と行動の一致 -->
-  <div class="point-card high reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 12</p>
-        <h3 class="point-title">理念と行動の一致【統合的指摘・最重要】</h3>
-      </div>
-      <span class="point-priority high">最優先</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">なぜこれが最重要か</p>
-        <p class="point-section-text">これまでの指摘は<strong>個別の構成要素</strong>についての話でしたが、この指摘は<strong>動画全体を貫く統合的設計思想</strong>です。前半（密着パート）と後半（訴求パート）をブリッジする役割を果たします。</p>
-        <p class="point-section-text">後半の訴求パート（給与待遇・理念発話・採用メッセージ）が最強の力を発揮するためには、<strong>前半で理念と行動が一致している証拠</strong>が必要です。「職人を大切にしている」と語る社長が、前半の密着シーンで実際に職人を大切にしている行動を見せていれば、後半の理念発話は<strong>裏付けられた信念</strong>として響く。逆に行動が映っていないと、後半の理念は<strong>単なる言葉</strong>として疑われる。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">視聴維持率と訴求パートの関係</p>
-        <div class="retention-box">
-          <p class="retention-title">VIEWER RETENTION × CONVERSION</p>
-          <div class="retention-bar">
-            <div class="retention-fill" style="width:50%;"></div>
-            <div class="retention-marker" style="left:50%;">
-              <span class="retention-marker-label">50% LINE</span>
-            </div>
-          </div>
-          <div class="retention-axis">
-            <span>0:00</span>
-            <span>10:00</span>
-            <span>20:00</span>
-          </div>
-          <p class="retention-note">20分動画を<strong>50%以上視聴する視聴者</strong>は、すでに船岡さんに強い興味を持った<strong>準ファン層</strong>。この層に対して訴求パートをぶつけると、応募・問い合わせのコンバージョンが最大化する。</p>
-          <p class="retention-note" style="margin-top:10px;">ただし、後半の訴求パートが効くのは<strong>前半で理念と行動が一致していた場合のみ</strong>。前半で「言ってることとやってることが違う」と感じた視聴者は、後半の理念発話を<strong>営業トーク</strong>として処理してしまい、不信感に転換する。</p>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">構造的なフロー設計</p>
-        <div class="bridge-flow">
-          <div class="bridge-step">
-            <p class="bridge-num">01</p>
-            <div class="bridge-body">
-              <p class="bridge-step-title">前半：1日の仕事密着で理念を行動として見せる</p>
-              <p class="bridge-step-desc">誰でも興味のある「<strong>1日の仕事</strong>」というパートの中に、船岡さんの理念を裏付ける行動を埋め込む。視聴者は意識せずに「この社長は思想と行動が一致している」と感じる。</p>
-            </div>
-          </div>
-          <div class="bridge-step">
-            <p class="bridge-num">02</p>
-            <div class="bridge-body">
-              <p class="bridge-step-title">中盤：山場①②で人物の核を理解させる</p>
-              <p class="bridge-step-desc">原体験・苦労・転機・誇りを通して、視聴者は船岡さんを<strong>人として理解</strong>する。50%視聴ラインを超えるのはこの層。</p>
-            </div>
-          </div>
-          <div class="bridge-step">
-            <p class="bridge-num">03</p>
-            <div class="bridge-body">
-              <p class="bridge-step-title">後半：訴求パートが最強に効く</p>
-              <p class="bridge-step-desc">給与待遇・理念発話・採用メッセージが、前半の行動という<strong>裏付け</strong>を持ったまま視聴者に届く。「言ってるだけ」ではなく「<strong>本当にやっている人の言葉</strong>」として処理される。応募率・問い合わせ率が劇的に上がる。</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">前半に埋め込むべき「理念→行動」の対応例</p>
-        <div class="action-scenes">
-          <div class="action-scene-card">
-            <p class="action-philosophy">理念：見えない場所こそ丁寧に</p>
-            <p class="action-arrow">↓</p>
-            <p class="action-behavior">行動：誰も見ない場所を念入りに仕上げるシーン</p>
-            <p class="action-scene-text">後で土に埋まる基礎部分・隠れる配管接続部などを丁寧に仕上げる手元アップ。<strong>誰も見ていなくても手を抜かない</strong>姿が映る。</p>
-          </div>
-          <div class="action-scene-card">
-            <p class="action-philosophy">理念：職人を大切にする</p>
-            <p class="action-arrow">↓</p>
-            <p class="action-behavior">行動：従業員への声かけ・休憩配慮シーン</p>
-            <p class="action-scene-text">朝礼での「無理するなよ」「水分とれよ」など何気ない一言、休憩時間を厳守する姿勢、若手の話を最後まで聞く態度。<strong>口で言うだけでない関係性</strong>が映る。</p>
-          </div>
-          <div class="action-scene-card">
-            <p class="action-philosophy">理念：お客様の生活を作る</p>
-            <p class="action-arrow">↓</p>
-            <p class="action-behavior">行動：施主の動線を意識する確認シーン</p>
-            <p class="action-scene-text">完成後の施主の動きを想像しながら確認するシーン。「ここを通る時に〜」「車を停める時に〜」と声に出して確認する姿。<strong>使う人を思って作っている</strong>ことが映る。</p>
-          </div>
-          <div class="action-scene-card">
-            <p class="action-philosophy">理念：未来の職人を育てる</p>
-            <p class="action-arrow">↓</p>
-            <p class="action-behavior">行動：若手への教え方・任せ方シーン</p>
-            <p class="action-scene-text">若手職人に技術を見せながら教える、あえて任せて見守る、失敗を責めずに次に繋げる場面。<strong>育成への本気度</strong>が映る。</p>
-          </div>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">撮影上の指示</p>
-        <div class="insight-box m">
-          <p class="ins-tag">DIRECTION</p>
-          <p class="ins-text">船岡さんに事前ヒアリングで<strong>「自分の理念」を言語化してもらう</strong>。その上で、撮影当日は<strong>その理念に対応する行動</strong>を意識的に拾う。<br><br>例：船岡さんが「職人を大切にしている」と語ったら、撮影スタッフは1日の中で<strong>その証拠になる行動</strong>を3〜5シーン分撮影する。理念ごとに行動シーンを紐づけて回収する設計。</p>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">編集上の実装</p>
-        <p class="point-section-text">後半の訴求パートで理念を語る瞬間、<strong>前半の行動シーンを短くインサート</strong>する。「職人を大切にしている」という発話の背後に、朝礼で従業員に声をかけているシーンが0.5秒だけ重なる。視聴者は無意識に「<strong>あ、さっきのあのシーンか</strong>」と接続し、理念が事実として確定する。</p>
-        <p class="point-section-text" style="margin-top:10px;">これが<strong>動画全体の説得力を倍にする</strong>編集テクニックです。前半の素材があれば、後半の編集が一段強くなる。</p>
-      </div>
-      <div class="point-section">
-        <div class="grad-bar">
-          <strong>結論：</strong>前半は「業務密着」、後半は「訴求パート」と分離して考えるのではなく、<strong>前半で集めた行動素材が後半の訴求の弾薬になる</strong>という統合設計で組む。これが採用ファン化動画として完全体になる条件です。
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑬ -->
-  <div class="point-card low reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 13</p>
-        <h3 class="point-title">統合発話の抽象化リスク</h3>
-      </div>
-      <span class="point-priority low">優先度低</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">何が問題か</p>
-        <p class="point-section-text">シーン10のC7で「一緒に働きたい人も、家を建てる人も」という統合質問で採用×集客を1メッセージに貫く設計。v1の反省（2人別々で余韻分散）からの改善だが、<strong>統合することでメッセージが抽象化されて、どちらにも刺さらない</strong>リスクがある。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">修正案</p>
-        <div class="option-grid">
-          <div class="option-card a">
-            <p class="option-tag">A案</p>
-            <p class="option-title">採用主軸＋集客は概要欄</p>
-            <p class="option-desc">本編最後の発話は採用メッセージ一本に絞る。集客は概要欄リンクで処理する。</p>
-          </div>
-          <div class="option-card b">
-            <p class="option-tag">B案<span class="option-recommend">推奨</span></p>
-            <p class="option-title">集客文脈から採用を呼ぶ</p>
-            <p class="option-desc">「家を建てる人を喜ばせたい人、一緒に来てほしい」のように、集客文脈の中で採用を呼ぶ。統合しつつ方向性が一本になる。</p>
-          </div>
-          <div class="option-card c">
-            <p class="option-tag">C案</p>
-            <p class="option-title">2問を1テイクで撮る</p>
-            <p class="option-desc">質問を2回に分けるが、編集で間を詰めて1メッセージのように見せる。同じ流れの中で2層を作る。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑭ -->
-  <div class="point-card low reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 14</p>
-        <h3 class="point-title">苦労ネタ選定の優先順位</h3>
-      </div>
-      <span class="point-priority low">補足</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">変容ストーリーへの接続性</p>
-        <p class="point-section-text">苦労ネタ6本のうち、変容のストーリーに繋げやすいのは<strong>①従業員離反、②独立直後の資金繰り、④初めての大型案件失敗、⑤親方との別れ</strong>。③取引先トラブル、⑥仕事を断られた経験は他者起因のため、船岡さん自身の変容が描きにくい。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">最も強いのは⑤親方との別れ</p>
-        <div class="insight-box p">
-          <p class="ins-tag">RECOMMEND</p>
-          <p class="ins-text">⑤を主軸にする理由：<br>
-          ・<strong>人間関係の弱み</strong>であり、視聴者が共感しやすい<br>
-          ・<strong>師弟関係</strong>という物語的な共感装置を含む<br>
-          ・学生時代・修行時代の<strong>原体験パートと自然に接続</strong>できる<br>
-          ・キャンベルの「<strong>援助者との出会いと別れ</strong>」のパターンと一致<br><br>
-          ⑤を主軸にして原体験パートと統合できれば、構成全体の物語密度が一段上がります。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 指摘⑮ -->
-  <div class="point-card mid reveal">
-    <div class="point-head">
-      <div>
-        <p class="point-num">POINT 15</p>
-        <h3 class="point-title">冒頭30秒の維持率と前半のテンポ設計</h3>
-      </div>
-      <span class="point-priority mid">優先度中</span>
-    </div>
-    <div class="point-body">
-      <div class="point-section">
-        <p class="point-section-label">前提となる目標値</p>
-        <p class="point-section-text">YouTube密着動画は<strong>冒頭の視聴維持率50%</strong>を一つの基準にします。冒頭で離脱されると、その後どれだけ良い話をしても拡散には乗らない。<strong>「30秒理論」</strong>を意識し、最初の30秒で視聴者を掴みきることを設計の前提に置きます。</p>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">テンポは「構成」と「シーン・カット」で作る</p>
-        <p class="point-section-text">テンポは編集だけで作るものではなく、<strong>構成段階で決まっている</strong>部分が大きい。具体的には<strong>場面転換の頻度</strong>と<strong>インタビューの尺</strong>の2つ。インタビューが1カット長すぎると、内容が良くてもテンポが落ちて離脱が起きる。</p>
-        <div class="point-list">
-          <p class="point-list-item">場面転換：冒頭3〜5分は短いシーンを重ねてリズムを作る</p>
-          <p class="point-list-item">インタビュー尺：1ブロックを長くしすぎず、現場映像や差し込みで切る</p>
-        </div>
-      </div>
-      <div class="point-section">
-        <p class="point-section-label">前半に重い話を置かない</p>
-        <div class="insight-box p">
-          <p class="ins-tag">CAUTION</p>
-          <p class="ins-text">前半に<strong>重い話（苦労ネタ・感情の山）</strong>を置くと、感情移入が完了していない一般視聴者は離脱します。重い話は<strong>視聴者が船岡さんに同一視した後（中盤以降）</strong>でないと刺さらず、むしろ「重そうな動画」と判定されて<strong>拡散面で不利</strong>になる。<br><br>
-          原体験パート（POINT 01）や苦労ネタ（POINT 14）を配置するときも、<strong>前半は軽快に・中盤以降に深堀り</strong>を原則として尺と順序を決めてください。</p>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ===== 03 優先順位 ===== -->
-<section id="priority">
-  <div class="sec-eyebrow reveal"><span>03</span> / 修正の優先順位</div>
-  <h2 class="sec-title reveal">最優先3項目を<br>まず固める</h2>
-  <p class="sec-lead reveal">最優先の3項目を直さないと、それ以降の細部修正は意味をなしません。逆に1〜3を直せば、他の細部は自動的に整理されてくる部分もあります。<strong>撮影日程・予算の制約があれば最優先3項目だけでも反映</strong>できれば、構成のレベルは大きく変わります。</p>
+<!-- ===== 02 共通項 ===== -->
+<section id="themes">
+  <div class="sec-eyebrow reveal"><span>02</span> / 共通項</div>
+  <h2 class="sec-title reveal">複数案件で繰り返される<br>指摘パターン</h2>
+  <p class="sec-lead reveal">案件をまたいで現れる構造的な指摘。新規台本のレビュー時、まずここをチェックすると<strong>同じ落とし穴を回避</strong>できます。FBが増えるほど精度が上がる、運用型のリスト。</p>
 
-  <div class="priority-grid reveal">
-    <div class="priority-card p1">
-      <p class="priority-tag"><span class="priority-tag-num">01</span>最優先</p>
-      <p class="priority-title">構造の根幹</p>
-      <div class="priority-items">
-        <p class="priority-item">原体験パートの追加</p>
-        <p class="priority-item">視聴者共感装置の設計</p>
-        <p class="priority-item">シンデレラ構造の成立</p>
-        <p class="priority-item">理念とお金のバランス設計</p>
-        <p class="priority-item">理念と行動の一致（前後半の統合）</p>
-      </div>
-    </div>
-    <div class="priority-card p2">
-      <p class="priority-tag"><span class="priority-tag-num">02</span>次点</p>
-      <p class="priority-title">精度向上＋後半補強</p>
-      <div class="priority-items">
-        <p class="priority-item">転機のセリフ設計</p>
-        <p class="priority-item">山場②の決め台詞引き出し方</p>
-        <p class="priority-item">コールドオープンの素材依存解消</p>
-        <p class="priority-item">第三者証言の追加</p>
-        <p class="priority-item">給与・待遇の透明化</p>
-        <p class="priority-item">現在進行形の人材難の開示</p>
-        <p class="priority-item">コミュニケーションシーン</p>
-      </div>
-    </div>
-    <div class="priority-card p3">
-      <p class="priority-tag"><span class="priority-tag-num">03</span>補足</p>
-      <p class="priority-title">余裕があれば</p>
-      <div class="priority-items">
-        <p class="priority-item">統合発話の方向性</p>
-        <p class="priority-item">苦労ネタ選定</p>
-      </div>
-    </div>
-  </div>
-</section>
+  <div class="reveal">
 
-<div class="divider"></div>
-
-<!-- ===== 04 総評 ===== -->
-<section id="conclusion">
-  <div class="sec-eyebrow reveal"><span>04</span> / 総評</div>
-  <h2 class="sec-title reveal">業界紹介から<br>採用ファン化動画へ</h2>
-
-  <div class="conclusion reveal">
-    <p class="conclusion-text">構成案そのものの完成度は高く、<strong>撮影3層構造、NG質問リスト、苦労ネタ6本ストック</strong>といった取材設計の精度は十分です。</p>
-    <p class="conclusion-text">ただし、目的（採用＋集客＋ファン化）に対しては、構造的に複数の弱点があります。最も重要なのは、<strong>前半（密着パート）と後半（訴求パート）が分離している</strong>こと。前半で集めた行動素材が後半の訴求の弾薬になる、という統合設計が組まれていません。</p>
-    <p class="conclusion-text"><strong>前半に「原体験＋視聴者共感装置＋シンデレラ構造」</strong>を組み込み、<strong>1日の仕事密着の中に「理念に対応する行動」を意識的に埋め込む</strong>。<strong>後半に「第三者証言＋給与待遇＋現在進行形の人材難」</strong>を追加し、給与待遇には<strong>必ず理念とのバランス設計</strong>を組み込む。さらに全体に<strong>コミュニケーションシーン</strong>を織り込む。</p>
-    <p class="conclusion-text">この設計が組めると、<strong>視聴維持率50%超のファン層</strong>に対して後半の訴求パートが<strong>裏付けられた信念</strong>として届く。「言ってるだけの社長」ではなく「<strong>本当にやっている人の言葉</strong>」として処理されるため、応募率・問い合わせ率が劇的に変わります。</p>
-    <div class="grad-bar">
-      <strong>最後に：</strong>この動画は<strong>業界紹介＋ハードワーク＋誇り</strong>の枠を超えて、<strong>採用ファン化動画</strong>として完全に機能する設計になっています。撮影日程・予算の制約があっても、最優先5項目（前半の構造＋理念バランス＋理念と行動の一致）だけ反映できれば、応募者の質と量の両方が劇的に変わる動画になります。
+    <div class="theme-card">
+      <p class="theme-num">PATTERN 01</p>
+      <h3 class="theme-title">原体験パートの欠落</h3>
+      <p class="theme-desc">幼少期・学生時代・修行時代といった<strong>原体験パート</strong>が構成に存在しない。社会人以降の話だけだと「成功者の昔話」にしか見えず、視聴者の感情移入が「頑張っている人」止まりで終わる。ファン化に必要な<strong>同一視</strong>が成立しない。</p>
+      <p class="theme-source">出典: 暖工業 POINT 01</p>
     </div>
+
+    <div class="theme-card">
+      <p class="theme-num">PATTERN 02</p>
+      <h3 class="theme-title">前半に重い話を置くと離脱</h3>
+      <p class="theme-desc">前半に<strong>重い話（苦労ネタ・感情の山）</strong>を置くと、感情移入が完了していない一般視聴者は離脱。重い話は中盤以降に配置。冒頭30秒は<strong>視聴維持率50%</strong>を基準に、テンポを「構成」と「シーン・カット」で設計する。</p>
+      <p class="theme-source">出典: 暖工業 POINT 15</p>
+    </div>
+
+    <div class="theme-empty">
+      <p>※ 案件が増えるごとに共通項を抽出。現在は暖工業1件分から推定。</p>
+    </div>
+
   </div>
 </section>
 
 <footer>
-  <div class="footer-logo">DAN.</div>
-  <p class="footer-text">SCRIPT FEEDBACK / 2026 / CONFIDENTIAL</p>
+  <div class="footer-logo">FB.</div>
+  <p class="footer-text">SCRIPT FEEDBACK ARCHIVE / 2026 / CONFIDENTIAL</p>
 </footer>
 
 <script>
 const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
-
 </body>
 </html>
