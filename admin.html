@@ -252,7 +252,13 @@ function clientCard(c,idx){
     el('div',{class:'entry-head-title'},c.name||'(未入力)'),
     el('div',{class:'entry-head-sub'},`#${c.number||'--'} / ${c.slug||'no-slug'} / ${c.stage}`)
   );
+  const openBtn=el('button',{class:'btn btn-secondary',onclick:(e)=>{
+    e.stopPropagation();
+    if(c.page)window.open(c.page,'_blank','noopener');
+    else alert('page が未設定です');
+  }},'↗ 開く');
   const headActions=el('div',{class:'entry-head-actions'},
+    openBtn,
     el('button',{class:'btn btn-danger',onclick:(e)=>{
       e.stopPropagation();
       if(confirm(`「${c.name||'このクライアント'}」を削除しますか？`)){
