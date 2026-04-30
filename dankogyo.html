@@ -238,6 +238,20 @@ section{padding:88px 48px;max-width:980px;margin:0 auto;}
 .conclusion-text:last-child{margin-bottom:0;}
 .conclusion-text strong{color:var(--text);font-weight:700;}
 
+.stage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:24px;}
+.stage-card{background:var(--bg);border:1.5px dashed var(--border);border-radius:18px;padding:28px;}
+.stage-card.done{background:var(--bg2);border-style:solid;}
+.stage-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.stage-num{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:2.5px;color:var(--light);}
+.stage-status{font-size:9px;font-weight:700;letter-spacing:2px;padding:4px 10px;border-radius:100px;font-family:'Montserrat',sans-serif;background:var(--bg2);color:var(--light);border:1px solid var(--border);}
+.stage-card.done .stage-status{background:rgba(78,205,196,0.12);color:var(--mint);border-color:rgba(78,205,196,0.4);}
+.stage-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:10px;}
+.stage-desc{font-size:12px;color:var(--mid);font-weight:300;line-height:1.85;margin-bottom:16px;}
+.stage-checklist{padding-top:14px;border-top:1px dashed var(--border);}
+.stage-checklist-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--light);margin-bottom:10px;}
+.stage-checklist-item{font-size:12px;color:var(--mid);font-weight:300;line-height:1.7;padding-left:14px;position:relative;margin-bottom:6px;}
+.stage-checklist-item::before{content:'';position:absolute;left:0;top:8px;width:6px;height:1.5px;background:var(--grad);}
+
 .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px;}
 .metric-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:14px;padding:28px 20px;text-align:center;}
 .metric-card-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--light);margin-bottom:14px;}
@@ -277,6 +291,7 @@ footer{background:var(--text);padding:48px;text-align:center;}
     <li><a href="#points">指摘事項</a></li>
     <li><a href="#priority">優先順位</a></li>
     <li><a href="#conclusion">総評</a></li>
+    <li><a href="#video-fb">動画FB</a></li>
     <li><a href="#metrics">実績</a></li>
   </ul>
   <div class="nav-date">DOCUMENTARY / FEEDBACK</div>
@@ -292,7 +307,8 @@ footer{background:var(--text);padding:48px;text-align:center;}
       <span class="toc-badge">02 指摘事項</span>
       <span class="toc-badge">03 優先順位</span>
       <span class="toc-badge">04 総評</span>
-      <span class="toc-badge">05 実績</span>
+      <span class="toc-badge">05 動画FB</span>
+      <span class="toc-badge">06 実績</span>
     </div>
   </div>
 </div>
@@ -1152,9 +1168,68 @@ footer{background:var(--text);padding:48px;text-align:center;}
 
 <div class="divider"></div>
 
-<!-- ===== 05 実績データ ===== -->
+<!-- ===== 05 動画FB ===== -->
+<section id="video-fb">
+  <div class="sec-eyebrow reveal"><span>05</span> / 動画FB</div>
+  <h2 class="sec-title reveal">撮影・編集に対する<br>フィードバック</h2>
+  <p class="sec-lead reveal">構成FBが反映された撮影・編集に対するフィードバック。<strong>撮影直後</strong>と<strong>編集直後</strong>の2段階で記録し、構成段階では見えなかった改善点を拾います。撮影後に各カードへ追記。</p>
+
+  <div class="stage-grid reveal">
+    <div class="stage-card">
+      <div class="stage-card-head">
+        <span class="stage-num">PHASE 01</span>
+        <span class="stage-status">未着手</span>
+      </div>
+      <h3 class="stage-title">撮影FB</h3>
+      <p class="stage-desc">撮影直後にレビュー。構成FBとのギャップ、想定外に良かった素材、追撮の必要性を洗い出す。</p>
+      <div class="stage-checklist">
+        <p class="stage-checklist-label">CHECKLIST</p>
+        <p class="stage-checklist-item">構成FB通りに素材が撮れているか</p>
+        <p class="stage-checklist-item">原体験パートのインタビュー深度</p>
+        <p class="stage-checklist-item">表情・間・空気感</p>
+        <p class="stage-checklist-item">追撮の必要性</p>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-card-head">
+        <span class="stage-num">PHASE 02</span>
+        <span class="stage-status">未着手</span>
+      </div>
+      <h3 class="stage-title">編集FB</h3>
+      <p class="stage-desc">編集後の動画レビュー。テンポ感、カット、テロップ、音楽、コールドオープン、冒頭30秒の維持率設計を確認。</p>
+      <div class="stage-checklist">
+        <p class="stage-checklist-label">CHECKLIST</p>
+        <p class="stage-checklist-item">冒頭30秒のフック強度（POINT 15）</p>
+        <p class="stage-checklist-item">場面転換とインタビュー尺</p>
+        <p class="stage-checklist-item">前半の重さ・後半の感情ピーク</p>
+        <p class="stage-checklist-item">テロップ・音楽・SE</p>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-card-head">
+        <span class="stage-num">PHASE 03</span>
+        <span class="stage-status">未着手</span>
+      </div>
+      <h3 class="stage-title">全体FB</h3>
+      <p class="stage-desc">納品前の最終レビュー。構成FB項目との照合、目的（採用＋集客＋ファン化）への到達度を確認。</p>
+      <div class="stage-checklist">
+        <p class="stage-checklist-label">CHECKLIST</p>
+        <p class="stage-checklist-item">最優先5項目の反映状況</p>
+        <p class="stage-checklist-item">前半・後半の統合度</p>
+        <p class="stage-checklist-item">理念と行動の一致</p>
+        <p class="stage-checklist-item">ターゲットの感情曲線</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 06 実績データ ===== -->
 <section id="metrics">
-  <div class="sec-eyebrow reveal"><span>05</span> / 実績データ</div>
+  <div class="sec-eyebrow reveal"><span>06</span> / 実績データ</div>
   <h2 class="sec-title reveal">公開後の<br>パフォーマンス</h2>
   <p class="sec-lead reveal">構成FBの結果として、公開後にどう動いたか。<strong>再生数・CTR・視聴維持率</strong>を追跡し、次の構成に活かすためのフィードバックループ。</p>
 
